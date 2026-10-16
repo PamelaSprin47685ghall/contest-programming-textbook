@@ -53,7 +53,9 @@ int main() {
         int v0, v1;
         char c;
         scanf("%d%d %c", &v0, &v1, &c);
-        bool same = (c == 'S');
+        // "x y T": x 说 y 说真话, 两者真假状态相同;
+        // "x y L": x 说 y 说谎, 两者真假状态相反.
+        bool same = (c == 'T');
         if (!uf.Union(v0 - 1, v1 - 1, same ? 0 : 1)) {
             printf("%d\n", i);
             return 0;
