@@ -1,19 +1,22 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <unordered_set>
 
+using namespace std;
+
 int main() {
     int n;
-    std::string s;
-    if (!(std::cin >> n >> s)) return 0;
+    char buf[128];
+    if (scanf("%d %s", &n, buf) != 2) return 0;
+    string s = buf;
 
     // 从长度 1 开始尝试连续子串的长度 k
     for (int k = 1; k <= n; ++k) {
         bool allUnique = true;
-        std::unordered_set<std::string> seen;
+        unordered_set<string> seen;
 
         for (int i = 0; i + k <= n; ++i) {
-            std::string sub = s.substr(i, k);
+            string sub = s.substr(i, k);
             if (seen.find(sub) != seen.end()) {
                 allUnique = false;
                 break;
@@ -22,11 +25,11 @@ int main() {
         }
 
         if (allUnique) {
-            std::cout << k << "\n";
+            printf("%d\n", k);
             return 0;
         }
     }
 
-    std::cout << n << "\n";
+    printf("%d\n", n);
     return 0;
 }

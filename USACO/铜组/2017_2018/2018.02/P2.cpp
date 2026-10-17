@@ -2,11 +2,13 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 传球关系图. 每头牛只把球传给最近的牛(平局传左边).
 // 用 Out 记录每头牛把球传给谁; 传球过程中把已传过的边置 -1 表示已处理.
 struct Graph {
-    std::vector<int> Out;
-    std::vector<int> InDegree;
+    vector<int> Out;
+    vector<int> InDegree;
 
     void ComputeInDegree() {
         InDegree.assign(Out.size(), 0);
@@ -39,9 +41,9 @@ struct Graph {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> position(n);
+    vector<int> position(n);
     for (int i = 0; i < n; ++i) scanf("%d", &position[i]);
-    std::sort(position.begin(), position.end());
+    sort(position.begin(), position.end());
     // 判断位置 no 的牛把球传给右边还是左边.
     auto passRight = [&](int no) {
         if (no == 0) return true;

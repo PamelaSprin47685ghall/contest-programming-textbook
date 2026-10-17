@@ -2,16 +2,18 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 char Buffer[80];
 
 struct Board {
     int size;
-    std::vector<std::string> grid;
+    vector<string> grid;
 
     Board& Read() {
         scanf("%d", &size);
         grid.resize(size);
-        for (std::string& row : grid) {
+        for (string& row : grid) {
             scanf("%s", Buffer);
             row = Buffer;
         }

@@ -2,9 +2,11 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 判断把绳子的第 i0 个结与第 i1 个结对折后, 其余结是否两两重合.
 // 绳长用结的位置表示, 对折后对称位置的和恒等于 i0+i1 的位置和.
-bool CanFold(const std::vector<int>& knots, int i0, int i1) {
+bool CanFold(const vector<int>& knots, int i0, int i1) {
     int target = knots[i0] + knots[i1];
     while (i0 < i1) {
         if (knots[i0] + knots[i1] != target) return false;
@@ -19,9 +21,9 @@ bool CanFold(const std::vector<int>& knots, int i0, int i1) {
 int main() {
     int n;
     scanf("%d%*d", &n);  // %*d 跳过第二个数 (绳子的长度)
-    std::vector<int> knots(n);
+    vector<int> knots(n);
     for (int& knot : knots) scanf("%d", &knot);
-    std::sort(knots.begin(), knots.end());
+    sort(knots.begin(), knots.end());
 
     int answer = 0;
     // 折点可能在两个结中间: 枚举与最后一个结对折的结, 以及与第一个结对折的结.

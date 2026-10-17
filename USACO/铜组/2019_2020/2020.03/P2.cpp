@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Cow {
     int x;
     int sick;
@@ -10,12 +12,12 @@ struct Cow {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<Cow> cows(n);
+    vector<Cow> cows(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d%d", &cows[i].x, &cows[i].sick);
     }
 
-    std::sort(cows.begin(), cows.end(), [](const Cow& a, const Cow& b) {
+    sort(cows.begin(), cows.end(), [](const Cow& a, const Cow& b) {
         return a.x < b.x;
     });
 
@@ -25,7 +27,7 @@ int main() {
     int minGapBetweenDiff = 1000000000;
     for (int i = 0; i < n - 1; ++i) {
         if (cows[i].sick != cows[i + 1].sick) {
-            minGapBetweenDiff = std::min(minGapBetweenDiff, cows[i + 1].x - cows[i].x);
+            minGapBetweenDiff = min(minGapBetweenDiff, cows[i + 1].x - cows[i].x);
         }
     }
 

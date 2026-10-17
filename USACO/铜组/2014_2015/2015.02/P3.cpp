@@ -2,18 +2,20 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 char buffer[80];
 
 int main() {
     int r, c;
     scanf("%d%d", &r, &c);
-    std::vector<std::string> board(r);
+    vector<string> board(r);
     for (int i = 0; i < r; ++i) {
         scanf("%s", buffer);
         board[i] = buffer;
     }
     // ways[i][j]：从 (i,j) 到右下角的跳法数，从右下角向左上递推。
-    std::vector<std::vector<int>> ways(r);
+    vector<vector<int>> ways(r);
     for (int i = 0; i < r; ++i) ways[i].resize(c);
     for (int i = r - 1; i >= 0; --i) {
         for (int j = c - 1; j >= 0; --j) {

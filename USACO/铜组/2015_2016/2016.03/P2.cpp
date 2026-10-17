@@ -2,17 +2,19 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 // 枚举两个碎片的编号（第一块在前）与各自的平移偏移量，
 // 若两块并集恰好拼成目标图形就输出编号。题目保证答案唯一。
 char buffer[80]; // 读一行棋盘
 
 struct Board {
-    std::vector<std::string> data;
+    vector<string> data;
 };
 
 void readBoard(Board& board, int n) {
     board.data.resize(n);
-    for (std::string& row : board.data) {
+    for (string& row : board.data) {
         scanf("%s", buffer);
         row = buffer;
     }
@@ -23,9 +25,9 @@ bool inRange(int v, int n) {
 }
 
 // 把第 no 个碎片平移到 (x, y) 后画到 q 上；超出棋盘的部分忽略。
-void placePiece(const std::vector<Board>& pieces, int no,
-                int x, int y, int n, std::vector<std::string>& q) {
-    q.assign(n, std::string(n, '.'));
+void placePiece(const vector<Board>& pieces, int no,
+                int x, int y, int n, vector<string>& q) {
+    q.assign(n, string(n, '.'));
     for (int px = 0; px < n; ++px) {
         for (int py = 0; py < n; ++py) {
             if (pieces[no].data[px][py] == '#' &&
@@ -37,8 +39,8 @@ void placePiece(const std::vector<Board>& pieces, int no,
 }
 
 // 两块碎片覆盖的格子必须与目标完全一致：不多、不少、不重叠。
-bool matches(const Board& target, const std::vector<std::string>& q0,
-             const std::vector<std::string>& q1, int n) {
+bool matches(const Board& target, const vector<string>& q0,
+             const vector<string>& q1, int n) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             int covered = (q0[i][j] == '#') + (q1[i][j] == '#');
@@ -51,9 +53,9 @@ bool matches(const Board& target, const std::vector<std::string>& q0,
 
 // 递归选两块碎片：depth 是第几块，begin 是可选编号的下界，
 // 保证第二块编号严格大于第一块。
-void compute(const Board& target, const std::vector<Board>& pieces, int n,
+void compute(const Board& target, const vector<Board>& pieces, int n,
              int begin, int depth, int& no0, int& no1,
-             std::vector<std::string>& q0, std::vector<std::string>& q1) {
+             vector<string>& q0, vector<string>& q1) {
     if (depth == 2) {
         if (matches(target, q0, q1, n)) {
             printf("%d %d\n", no0 + 1, no1 + 1);
@@ -84,11 +86,11 @@ int main() {
     scanf("%d%d", &n, &k);
     Board target;
     readBoard(target, n);
-    std::vector<Board> pieces(k);
+    vector<Board> pieces(k);
     for (Board& p : pieces) readBoard(p, n);
 
     int no0 = 0, no1 = 0;
-    std::vector<std::string> q0, q1;
+    vector<string> q0, q1;
     compute(target, pieces, n, 0, 0, no0, no1, q0, q1);
     return 0;
 }

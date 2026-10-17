@@ -1,48 +1,49 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
-void Solve() {
+using namespace std;
+
+void solve() {
     int n, c, p;
-    std::cin >> n >> c >> p;
-    std::vector<std::string> nouns, tverbs, iverbs, conjs;
+    scanf("%d %d %d", &n, &c, &p);
+    vector<string> nouns, tverbs, iverbs, conjs;
+    char word[105];
+    char kind[105];
     for (int i = 0; i < n; ++i) {
-        std::string w, t;
-        std::cin >> w >> t;
-        if (t == "noun") nouns.push_back(w);
-        else if (t == "transitive-verb") tverbs.push_back(w);
-        else if (t == "intransitive-verb") iverbs.push_back(w);
-        else if (t == "conjunction") conjs.push_back(w);
+        scanf("%s %s", word, kind);
+        if (kind[0] == 'n') nouns.push_back(word);
+        else if (kind[0] == 't') tverbs.push_back(word);
+        else if (kind[0] == 'i') iverbs.push_back(word);
+        else conjs.push_back(word);
     }
 
     int bestWords = 0;
     int bestT = 0, bestI = 0, bestConj = 0, bestExtraN = 0;
 
-    int numNouns = nouns.size();
-    int numT = tverbs.size();
-    int numI = iverbs.size();
-    int numConj = conjs.size();
+    int numNouns = (int)nouns.size();
+    int numT = (int)tverbs.size();
+    int numI = (int)iverbs.size();
+    int numConj = (int)conjs.size();
 
     for (int t = 0; t <= numT; ++t) {
         if (2 * t > numNouns) break;
         int remNouns = numNouns - 2 * t;
-        int maxI = std::min(numI, remNouns);
+        int maxI = min(numI, remNouns);
 
         for (int i = 0; i <= maxI; ++i) {
             int totalSentences = t + i;
             if (totalSentences == 0) continue;
 
-            int maxC = std::min(numConj, totalSentences / 2);
-            int minC = std::max(0, totalSentences - p);
+            int maxC = min(numConj, totalSentences / 2);
+            int minC = max(0, totalSentences - p);
             if (minC > maxC) continue;
 
             int conjUsed = maxC;
             int leftNouns = remNouns - i;
             int extraN = 0;
-            if (t > 0) {
-                extraN = std::min(leftNouns, c);
-            }
+            if (t > 0) extraN = min(leftNouns, c);
 
             int words = 3 * t + 2 * i + conjUsed + extraN;
             if (words > bestWords) {
@@ -56,35 +57,35 @@ void Solve() {
     }
 
     if (bestWords == 0) {
-        std::cout << "0\n\n";
+        printf("0\n\n");
         return;
     }
 
-    std::vector<std::string> sentences;
+    vector<string> sentences;
     for (int i = 0; i < bestI; ++i) {
-        std::string s = nouns.back() + " " + iverbs.back();
+        string sentence = nouns.back() + " " + iverbs.back();
         nouns.pop_back();
         iverbs.pop_back();
-        sentences.push_back(s);
+        sentences.push_back(sentence);
     }
     for (int i = 0; i < bestT; ++i) {
-        std::string s = nouns.back() + " " + tverbs.back();
+        string sentence = nouns.back() + " " + tverbs.back();
         nouns.pop_back();
         tverbs.pop_back();
-        s += " " + nouns.back();
+        sentence += " " + nouns.back();
         nouns.pop_back();
         if (i == 0) {
             for (int e = 0; e < bestExtraN; ++e) {
-                s += ", " + nouns.back();
+                sentence += ", " + nouns.back();
                 nouns.pop_back();
             }
         }
-        sentences.push_back(s);
+        sentences.push_back(sentence);
     }
 
-    std::string output = "";
+    string output = "";
     int conjIdx = 0;
-    for (std::size_t i = 0; i < sentences.size(); ++i) {
+    for (int i = 0; i < (int)sentences.size(); ++i) {
         if (i > 0) {
             if (conjIdx < bestConj && (i % 2 == 1)) {
                 output += " " + conjs[conjIdx++] + " ";
@@ -96,15 +97,12 @@ void Solve() {
     }
     output += ".";
 
-    std::cout << bestWords << "\n" << output << "\n";
+    printf("%d\n%s\n", bestWords, output.c_str());
 }
 
 int main() {
     int t;
-    if (std::cin >> t) {
-        while (t--) {
-            Solve();
-        }
-    }
+    scanf("%d", &t);
+    while (t--) solve();
     return 0;
 }

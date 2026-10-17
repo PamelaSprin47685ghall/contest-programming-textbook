@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <string>
 
+using namespace std;
+
 // 方向编号 d 对应的位移: 0=(0,1), 1=(-1,0), 2=(0,-1), 3=(1,0).
 // 初始朝向下, 牛的前后左右分别是 F/L/B/R, 与 d=0..3 一一对应.
 const int DX[4] = {0, -1, 0, 1};
@@ -61,7 +63,7 @@ struct Cow {
     }
 
     // 解析一条指令: 前两个字符是脚 (FL/FR/RL/RR), 后一个字符是动作.
-    bool MoveOrRotate(const std::string& s) {
+    bool MoveOrRotate(const string& s) {
         int no = 0;
         if (s[0] == 'R') no += 2;
         if (s[1] == 'R') no += 1;

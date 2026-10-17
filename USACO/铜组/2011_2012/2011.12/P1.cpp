@@ -2,10 +2,12 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> bales(n);
+    vector<int> bales(n);
     for (int& bale : bales) scanf("%d", &bale);
 
     int sum = 0;
@@ -14,7 +16,7 @@ int main() {
 
     // 高于平均数的部分就是需要移走的干草捆数.
     int answer = 0;
-    for (int bale : bales) answer += std::max(0, bale - average);
+    for (int bale : bales) answer += max(0, bale - average);
     printf("%d\n", answer);
     return 0;
 }

@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Rectangle {
     int left, right, bottom, top;
 };
@@ -21,39 +23,39 @@ Rectangle ReadRectangle() {
 
 // 读入 n 个矩形, 返回离散化后的 x 坐标列表和 y 坐标列表.
 // 离散化: 把所有用到的坐标排序去重, 这样网格大小只与坐标个数有关.
-void Discretize(const std::vector<Rectangle>& rects,
-                std::vector<int>& xs, std::vector<int>& ys) {
+void Discretize(const vector<Rectangle>& rects,
+                vector<int>& xs, vector<int>& ys) {
     for (const Rectangle& r : rects) {
         xs.push_back(r.left);
         xs.push_back(r.right);
         ys.push_back(r.bottom);
         ys.push_back(r.top);
     }
-    std::sort(xs.begin(), xs.end());
-    xs.resize(std::unique(xs.begin(), xs.end()) - xs.begin());
-    std::sort(ys.begin(), ys.end());
-    ys.resize(std::unique(ys.begin(), ys.end()) - ys.begin());
+    sort(xs.begin(), xs.end());
+    xs.resize(unique(xs.begin(), xs.end()) - xs.begin());
+    sort(ys.begin(), ys.end());
+    ys.resize(unique(ys.begin(), ys.end()) - ys.begin());
 }
 
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<Rectangle> rects(n);
+    vector<Rectangle> rects(n);
     for (Rectangle& r : rects) r = ReadRectangle();
 
-    std::vector<int> xs, ys;
+    vector<int> xs, ys;
     Discretize(rects, xs, ys);
 
     // 网格单元 (i, j) 表示 [xs[i], xs[i+1]) x [ys[j], ys[j+1]) 的区间.
-    std::vector<std::vector<bool>> covered(
-        xs.size() - 1, std::vector<bool>(ys.size() - 1, false));
+    vector<vector<bool>> covered(
+        xs.size() - 1, vector<bool>(ys.size() - 1, false));
 
     // 每个矩形把覆盖到的网格单元标记为真.
     for (const Rectangle& r : rects) {
-        int leftIndex = std::lower_bound(xs.begin(), xs.end(), r.left) - xs.begin();
-        int rightIndex = std::lower_bound(xs.begin(), xs.end(), r.right) - xs.begin();
-        int bottomIndex = std::lower_bound(ys.begin(), ys.end(), r.bottom) - ys.begin();
-        int topIndex = std::lower_bound(ys.begin(), ys.end(), r.top) - ys.begin();
+        int leftIndex = lower_bound(xs.begin(), xs.end(), r.left) - xs.begin();
+        int rightIndex = lower_bound(xs.begin(), xs.end(), r.right) - xs.begin();
+        int bottomIndex = lower_bound(ys.begin(), ys.end(), r.bottom) - ys.begin();
+        int topIndex = lower_bound(ys.begin(), ys.end(), r.top) - ys.begin();
         for (int i = leftIndex; i < rightIndex; ++i) {
             for (int j = bottomIndex; j < topIndex; ++j) {
                 covered[i][j] = true;

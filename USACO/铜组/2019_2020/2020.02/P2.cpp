@@ -1,10 +1,13 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
+
+using namespace std;
 
 int main() {
     int n;
-    std::string a, b;
-    if (!(std::cin >> n >> a >> b)) return 0;
+    char bufA[1005], bufB[1005];
+    if (scanf("%d %s %s", &n, bufA, bufB) != 3) return 0;
+    string a = bufA, b = bufB;
 
     // 每次操作可以将一段连续子串的 H/G 相互翻转.
     // 找出序列中由于 B 与 A 不一致而形成的极长不匹配连续区间的数量.
@@ -22,6 +25,6 @@ int main() {
         }
     }
 
-    std::cout << flipCount << "\n";
+    printf("%d\n", flipCount);
     return 0;
 }

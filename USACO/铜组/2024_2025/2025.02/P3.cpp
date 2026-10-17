@@ -1,14 +1,17 @@
-#include <bits/stdc++.h>
-using namespace std; 
- 
+#include <cstdio>
+#include <utility>
+#include <vector>
+
+using namespace std;
+
 void solve(){
     int n, k;
-    cin >> n >> k;
- 
+    scanf("%d%d", &n, &k);
+
     vector<int> A(n);
     for (int &i : A)
-        cin >> i;
-    
+        scanf("%d", &i);
+
     auto check1 = [&](int l, int r){
         for (int i = l + 1; i <= r; i++)
             if (A[i] != A[i - 1])
@@ -17,7 +20,7 @@ void solve(){
     };
     auto check2 = [&](int l, int r){
         vector<pair<int, int>> blk;
- 
+
         for (int i = l; i <= r; i++){
             if (blk.size() and A[i] == A[i - 1])
                 blk.back().second++;
@@ -36,15 +39,15 @@ void solve(){
         for (int blkLen = 1; blkLen <= r - l + 1; blkLen++){
             if ((r - l + 1) % blkLen)
                 continue;
- 
+
             bool ok = true;
- 
+
             for (int i = l; i + blkLen <= r; i++)
                 ok &= (A[i] == A[i + blkLen]);
-            
+
             if (!ok)
                 continue;
-            
+
             // Check the prefix
             for (int i = l; i <= l + blkLen; i++)
                 if ((check1(l, i) and check2(i + 1, l + blkLen - 1)) or (check2(l, i) and check1(i + 1, l + blkLen - 1)))
@@ -52,20 +55,19 @@ void solve(){
         }
         return false;
     };
- 
+
     if (k == 1)
-        cout<<(check1(0, n - 1) ? "YES" : "NO")<<"\n";
+        printf("%s\n", check1(0, n - 1) ? "YES" : "NO");
     else if (k == 2)
-        cout<<(check2(0, n - 1) ? "YES" : "NO")<<"\n";
+        printf("%s\n", check2(0, n - 1) ? "YES" : "NO");
     else
-        cout<<(check3(0, n - 1) ? "YES" : "NO")<<"\n";
+        printf("%s\n", check3(0, n - 1) ? "YES" : "NO");
 }
- 
+
 int main(){
-    ios_base::sync_with_stdio(0); cin.tie(0); 
-    int tc; 
-    cin >> tc;
- 
-    while (tc--) 
+    int tc;
+    scanf("%d", &tc);
+
+    while (tc--)
         solve();
 }

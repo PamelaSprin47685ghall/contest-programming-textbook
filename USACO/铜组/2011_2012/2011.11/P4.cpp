@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
@@ -26,9 +28,9 @@ int Encode(int x, int y, int width) {
 int main() {
     int rows, cols;
     scanf("%d%d", &rows, &cols);
-    std::vector<std::string> grid(rows);
+    vector<string> grid(rows);
     char buffer[80];
-    for (std::string& row : grid) {
+    for (string& row : grid) {
         scanf("%s", buffer);
         row = buffer;
     }
@@ -48,8 +50,8 @@ int main() {
 
     // 走到 X 代价为 0, 走到 . 代价为 1. 求到另一块 X 的最短代价.
     const int infinity = 1 << 30;
-    std::vector<int> distance(rows * cols, infinity);
-    std::priority_queue<QueueItem> queue;
+    vector<int> distance(rows * cols, infinity);
+    priority_queue<QueueItem> queue;
 
     int start = Encode(startX, startY, cols);
     distance[start] = 0;

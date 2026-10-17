@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Statement {
     char dir;
     int p;
@@ -10,8 +12,8 @@ struct Statement {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<Statement> stmts(n);
-    std::vector<int> candidatePoints;
+    vector<Statement> stmts(n);
+    vector<int> candidatePoints;
 
     for (int i = 0; i < n; ++i) {
         scanf(" %c%d", &stmts[i].dir, &stmts[i].p);

@@ -1,19 +1,21 @@
 #include <cstdio>
 #include <string>
 
+using namespace std;
+
 char Buffer[80];
 
 // 按数值大小比较两个十进制串: 先比长度, 长度相同再按字典序.
-bool LessOrEqual(const std::string& a, const std::string& b) {
+bool LessOrEqual(const string& a, const string& b) {
     if (a.size() != b.size()) return a.size() < b.size();
     return a <= b;
 }
 
 int main() {
     scanf("%s", Buffer);
-    std::string x = Buffer;
+    string x = Buffer;
     scanf("%s", Buffer);
-    std::string y = Buffer;
+    string y = Buffer;
 
     int answer = 0;
     // 有趣数: 恰好一个数字出现一次, 其余全相同. 枚举主数字 b、
@@ -23,7 +25,7 @@ int main() {
             for (int j = 0; j < 10; ++j) {
                 if (j == b) continue;
                 for (int k = 0; k < length; ++k) {
-                    std::string number;
+                    string number;
                     for (int pos = 0; pos < length; ++pos) {
                         int digit = pos == k ? j : b;
                         number += '0' + digit;

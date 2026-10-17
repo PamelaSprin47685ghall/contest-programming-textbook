@@ -2,11 +2,13 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     long long k;
     scanf("%d%lld", &n, &k);
-    std::vector<long long> d(n);
+    vector<long long> d(n);
     for (int i = 0; i < n; ++i) {
         scanf("%lld", &d[i]);
     }
@@ -20,7 +22,7 @@ int main() {
     for (int i = 1; i < n; ++i) {
         long long extendCost = d[i] - d[i - 1];
         long long newSubCost = 1 + k;
-        totalCost += std::min(extendCost, newSubCost);
+        totalCost += min(extendCost, newSubCost);
     }
 
     printf("%lld\n", totalCost);

@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 每段栅栏的端点是一个事件：左端点进入覆盖，右端点离开覆盖。
 // 按坐标排序后扫描，当前覆盖层数大于 0 的区间长度累加起来，
 // 就是被至少一个画家涂过的总长度。
@@ -18,12 +20,12 @@ int main() {
     int a, b, c, d;
     scanf("%d%d%d%d", &a, &b, &c, &d);
 
-    std::vector<Event> events;
+    vector<Event> events;
     events.push_back(Event{a, 1});
     events.push_back(Event{b, -1});
     events.push_back(Event{c, 1});
     events.push_back(Event{d, -1});
-    std::sort(events.begin(), events.end());
+    sort(events.begin(), events.end());
 
     int lastX = -1; // 上一个端点的坐标
     int layers = 0; // 当前被覆盖的层数

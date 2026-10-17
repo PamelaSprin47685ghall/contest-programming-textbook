@@ -1,13 +1,15 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
-struct CowSubpop {
-    std::vector<std::string> traits;
+using namespace std;
 
-    bool HasTrait(const std::string& t) const {
-        for (const std::string& s : traits) {
+struct CowSubpop {
+    vector<string> traits;
+
+    bool HasTrait(const string& t) const {
+        for (const string& s : traits) {
             if (s == t) return true;
         }
         return false;
@@ -16,24 +18,26 @@ struct CowSubpop {
 
 int main() {
     int n;
-    if (!(std::cin >> n)) return 0;
+    scanf("%d", &n);
 
-    std::vector<CowSubpop> cows(n);
-    std::vector<std::string> allTraits;
+    vector<CowSubpop> cows(n);
+    vector<string> allTraits;
+    char buf[80];
 
     for (int i = 0; i < n; ++i) {
         int k;
-        std::cin >> k;
+        scanf("%d", &k);
         cows[i].traits.resize(k);
         for (int j = 0; j < k; ++j) {
-            std::cin >> cows[i].traits[j];
+            scanf("%s", buf);
+            cows[i].traits[j] = buf;
             allTraits.push_back(cows[i].traits[j]);
         }
     }
 
     // 特征去重
-    std::sort(allTraits.begin(), allTraits.end());
-    allTraits.erase(std::unique(allTraits.begin(), allTraits.end()), allTraits.end());
+    sort(allTraits.begin(), allTraits.end());
+    allTraits.erase(unique(allTraits.begin(), allTraits.end()), allTraits.end());
 
     // 检查是否有任何一对特征 (A, B) 发生交叉:
     // 即存在同时拥有 (A, B) 的个体, 拥有 (A 且非 B) 的个体, 以及 (B 且非 A) 的个体.
@@ -53,12 +57,12 @@ int main() {
             }
 
             if (hasBoth && hasOnlyA && hasOnlyB) {
-                std::cout << "no\n";
+                printf("no\n");
                 return 0;
             }
         }
     }
 
-    std::cout << "yes\n";
+    printf("yes\n");
     return 0;
 }

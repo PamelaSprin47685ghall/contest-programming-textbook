@@ -1,29 +1,32 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
+
+using namespace std;
 
 int main() {
     int n, k;
-    if (!(std::cin >> n >> k)) return 0;
+    if (scanf("%d %d", &n, &k) != 2) return 0;
 
     int currentLineChars = 0;
     for (int i = 0; i < n; ++i) {
-        std::string word;
-        std::cin >> word;
+        char buf[128];
+        scanf("%s", buf);
+        string word = buf;
         int len = word.size();
 
         if (currentLineChars + len <= k) {
             // 可以继续放在当前行
             if (currentLineChars > 0) {
-                std::cout << " ";
+                printf(" ");
             }
-            std::cout << word;
+            printf("%s", word.c_str());
             currentLineChars += len;
         } else {
             // 换行放置
-            std::cout << "\n" << word;
+            printf("\n%s", word.c_str());
             currentLineChars = len;
         }
     }
-    std::cout << "\n";
+    printf("\n");
     return 0;
 }

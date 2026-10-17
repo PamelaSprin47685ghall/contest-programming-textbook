@@ -1,7 +1,8 @@
-
 #include <algorithm>
 #include <cstdio>
 #include <vector>
+
+using namespace std;
 
 struct Cow {
     int id;
@@ -19,9 +20,9 @@ int main() {
     int n;
     scanf("%d", &n);
 
-    std::vector<Cow> allCows(n);
-    std::vector<Cow> eastCows;
-    std::vector<Cow> northCows;
+    vector<Cow> allCows(n);
+    vector<Cow> eastCows;
+    vector<Cow> northCows;
 
     for (int i = 0; i < n; ++i) {
         char dir;
@@ -35,7 +36,7 @@ int main() {
         }
     }
 
-    std::vector<Collision> collisions;
+    vector<Collision> collisions;
 
     for (const Cow& e : eastCows) {
         for (const Cow& nr : northCows) {
@@ -51,11 +52,11 @@ int main() {
         }
     }
 
-    std::sort(collisions.begin(), collisions.end(), [](const Collision& a, const Collision& b) {
+    sort(collisions.begin(), collisions.end(), [](const Collision& a, const Collision& b) {
         return a.time < b.time;
     });
 
-    std::vector<int> stopDist(n, -1);
+    vector<int> stopDist(n, -1);
 
     for (const Collision& c : collisions) {
         int victim = c.stoppedCow;

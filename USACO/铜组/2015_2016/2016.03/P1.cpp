@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 const int MAX_SIZE = 10000; // 钻石尺寸的上界，直接开计数数组
 
 // 滑动窗口 [i - k, i] 内的钻石尺寸差不超过 k，可以放同一只盒子。
@@ -9,7 +11,7 @@ const int MAX_SIZE = 10000; // 钻石尺寸的上界，直接开计数数组
 int main() {
     int n, k;
     scanf("%d%d", &n, &k);
-    std::vector<int> counts(MAX_SIZE + 1);
+    vector<int> counts(MAX_SIZE + 1);
     for (int i = 0; i < n; ++i) {
         int size;
         scanf("%d", &size);
@@ -21,7 +23,7 @@ int main() {
 
     int answer = 0;
     for (int i = k + 1;; ++i) {
-        answer = std::max(answer, current);
+        answer = max(answer, current);
         if (i == (int)counts.size()) break;
         current += counts[i];          // 右端进入窗口
         current -= counts[i - k - 1];  // 左端离开窗口

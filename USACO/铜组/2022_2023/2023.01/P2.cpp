@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Cow {
     int s, t, c;
 };
@@ -13,11 +15,11 @@ struct AC {
 int main() {
     int n, m;
     scanf("%d%d", &n, &m);
-    std::vector<Cow> cows(n);
+    vector<Cow> cows(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d%d%d", &cows[i].s, &cows[i].t, &cows[i].c);
     }
-    std::vector<AC> acs(m);
+    vector<AC> acs(m);
     for (int i = 0; i < m; ++i) {
         scanf("%d%d%d%d", &acs[i].a, &acs[i].b, &acs[i].p, &acs[i].cost);
     }

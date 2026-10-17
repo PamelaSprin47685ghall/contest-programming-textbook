@@ -2,11 +2,13 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 归并两条减速事件链: 按时间发生的减速, 按距离发生的减速.
 // 当前速度是 1/invSpeed 英里/分钟, 每次减速后速度变慢.
 struct Race {
-    std::vector<double> timeEvents;
-    std::vector<double> distanceEvents;
+    vector<double> timeEvents;
+    vector<double> distanceEvents;
 
     void Read() {
         int n;
@@ -18,8 +20,8 @@ struct Race {
             if (kind == 'T') timeEvents.push_back(value);
             else distanceEvents.push_back(value);
         }
-        std::sort(timeEvents.begin(), timeEvents.end());
-        std::sort(distanceEvents.begin(), distanceEvents.end());
+        sort(timeEvents.begin(), timeEvents.end());
+        sort(distanceEvents.begin(), distanceEvents.end());
     }
 
     double Solve() {

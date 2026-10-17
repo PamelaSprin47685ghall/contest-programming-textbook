@@ -2,15 +2,17 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<long long> c(n);
+    vector<long long> c(n);
     for (int i = 0; i < n; ++i) {
         scanf("%lld", &c[i]);
     }
 
-    std::sort(c.begin(), c.end());
+    sort(c.begin(), c.end());
 
     long long maxRevenue = 0;
     long long bestTuition = 0;

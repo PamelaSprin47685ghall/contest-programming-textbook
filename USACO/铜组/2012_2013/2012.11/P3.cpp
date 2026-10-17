@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
@@ -11,13 +13,13 @@ char buffer[80];
 // 棋盘: 越界访问统一返回 outside, 便于 DFS 把边界当障碍.
 struct Board {
     int n;
-    std::vector<std::string> data;
+    vector<string> data;
     char outside = 'X';
 
     void Read() {
         scanf("%d", &n);
         data.resize(n);
-        for (std::string& row : data) {
+        for (string& row : data) {
             scanf("%s", buffer);
             row = buffer;
         }
@@ -42,7 +44,7 @@ struct DFS {
         board->At(x, y) = 'X';
         if (cell == '(') ++sizeLeft;
         else if (cell == ')') ++sizeRight;
-        if (sizeLeft == sizeRight) answer = std::max(answer, sizeLeft + sizeRight);
+        if (sizeLeft == sizeRight) answer = max(answer, sizeLeft + sizeRight);
 
         for (int i = 0; i < 4; ++i) {
             Compute(x + DX[i], y + DY[i], sizeLeft, sizeRight);

@@ -1,14 +1,17 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
-    std::string s;
-    if (!(std::cin >> n >> s)) return 0;
+    char buf[300005];
+    if (scanf("%d%s", &n, buf) != 2) return 0;
+    string s = buf;
 
-    std::vector<int> blocks;
+    vector<int> blocks;
     int cur = 0;
     for (int i = 0; i < n; ++i) {
         if (s[i] == '1') {
@@ -21,7 +24,7 @@ int main() {
     if (cur > 0) blocks.push_back(cur);
 
     if (blocks.empty()) {
-        std::cout << 0 << "\n";
+        printf("0\n");
         return 0;
     }
 
@@ -32,16 +35,16 @@ int main() {
     int firstBlock = 0, lastBlock = (int)blocks.size() - 1;
 
     if (s[0] == '1') {
-        minDays = std::min(minDays, blocks[0] - 1);
+        minDays = min(minDays, blocks[0] - 1);
         firstBlock = 1;
     }
     if (s[n - 1] == '1' && lastBlock >= firstBlock) {
-        minDays = std::min(minDays, blocks.back() - 1);
+        minDays = min(minDays, blocks.back() - 1);
         lastBlock--;
     }
 
     for (int i = firstBlock; i <= lastBlock; ++i) {
-        minDays = std::min(minDays, (blocks[i] - 1) / 2);
+        minDays = min(minDays, (blocks[i] - 1) / 2);
     }
 
     // 每个原本的染病源在 minDays 天内最多能扩散到 2 * minDays + 1 头牛
@@ -51,6 +54,6 @@ int main() {
         totalInitial += (b + window - 1) / window;
     }
 
-    std::cout << totalInitial << "\n";
+    printf("%d\n", totalInitial);
     return 0;
 }

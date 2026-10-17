@@ -2,17 +2,19 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<long long> a(n);
-    std::vector<long long> b(n);
+    vector<long long> a(n);
+    vector<long long> b(n);
     for (int i = 0; i < n; ++i) scanf("%lld", &a[i]);
     for (int i = 0; i < n; ++i) scanf("%lld", &b[i]);
 
     // 从大到小为每头牛匹配可以容纳它的牛棚
-    std::sort(a.rbegin(), a.rend());
-    std::sort(b.rbegin(), b.rend());
+    sort(a.rbegin(), a.rend());
+    sort(b.rbegin(), b.rend());
 
     long long totalWays = 1;
 

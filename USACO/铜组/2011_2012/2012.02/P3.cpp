@@ -1,10 +1,12 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 第 i 级 S(i) = S(i-1) + 中间段 + S(i-1), 中间段是 "m" 后跟 i+2 个 "o".
 // lengths[i] 记录 S(i) 的长度.
-std::vector<int> BuildLengths(int n) {
-    std::vector<int> lengths(1, 0);
+vector<int> BuildLengths(int n) {
+    vector<int> lengths(1, 0);
     while (lengths.back() < n) {
         int level = (int)lengths.size() - 1;
         // S(level+1) = S(level) + (level+3) + S(level).
@@ -15,7 +17,7 @@ std::vector<int> BuildLengths(int n) {
 
 // 在 S(level) 里找第 n 个字符 (1 起始).
 // lengths[level] 恰好是左半边 S(level-1) 的长度.
-char FindChar(int n, int level, const std::vector<int>& lengths) {
+char FindChar(int n, int level, const vector<int>& lengths) {
     int leftSize = lengths[level];
     int middleSize = level + 3;
     if (n <= leftSize) return FindChar(n, level - 1, lengths);  // 在左半边
@@ -30,7 +32,7 @@ char FindChar(int n, int level, const std::vector<int>& lengths) {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> lengths = BuildLengths(n);
+    vector<int> lengths = BuildLengths(n);
     printf("%c\n", FindChar(n, (int)lengths.size() - 1, lengths));
     return 0;
 }

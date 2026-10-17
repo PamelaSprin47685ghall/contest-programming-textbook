@@ -2,16 +2,18 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> a(n);
-    std::vector<int> b(n);
+    vector<int> a(n);
+    vector<int> b(n);
     for (int i = 0; i < n; ++i) scanf("%d", &a[i]);
     for (int i = 0; i < n; ++i) scanf("%d", &b[i]);
 
     // posInB[cow]: 奶牛 cow 在目标数组 b 中的目标位置
-    std::vector<int> posInB(n + 1);
+    vector<int> posInB(n + 1);
     for (int i = 0; i < n; ++i) {
         posInB[b[i]] = i;
     }
@@ -27,7 +29,7 @@ int main() {
     // 经典贪心:
     // 在 b 从左到右按序匹配:
     // 维护一个指针 pa 指向 a 的当前可用牛, 用 moved 标记哪些牛已经被提前移走.
-    std::vector<bool> moved(n + 1, false);
+    vector<bool> moved(n + 1, false);
     int pa = 0;
     for (int pb = 0; pb < n; ++pb) {
         int targetCow = b[pb];

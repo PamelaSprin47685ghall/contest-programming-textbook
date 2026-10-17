@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Cow {
     int position = 0;
     char direction;
@@ -15,7 +17,7 @@ struct Event {
 
 // 每头牛在某时刻改变方向的事件, 按时间排序后模拟相遇.
 struct Events {
-    std::vector<Event> events;
+    vector<Event> events;
 
     void Read() {
         int counts[2];
@@ -41,7 +43,7 @@ struct Events {
     }
 
     int Process() {
-        std::sort(events.begin(), events.end(), [](const Event& e0, const Event& e1) {
+        sort(events.begin(), events.end(), [](const Event& e0, const Event& e1) {
             return e0.time < e1.time;
         });
         Cow cows[2];

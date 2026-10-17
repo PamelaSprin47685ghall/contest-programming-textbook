@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <unordered_map>
 
+using namespace std;
+
 // 灯的状态压缩成整数: 第 i 位表示第 i 盏灯 (0 基) 的开关.
 struct States {
     int n;
@@ -36,7 +38,7 @@ int main() {
     int state = 0;
     states.Read(state);
 
-    std::unordered_map<int, int> firstSeen;  // 每个状态第一次出现的步数.
+    unordered_map<int, int> firstSeen;  // 每个状态第一次出现的步数.
     bool loopFound = false;
     for (long long step = 0; step < b; ++step) {
         if (!loopFound) {

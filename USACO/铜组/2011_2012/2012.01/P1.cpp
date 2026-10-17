@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Gift {
     long long price;   // 原价
     long long shipping;
@@ -9,8 +11,8 @@ struct Gift {
 };
 
 // 读入并排序, 同时把 total 变成前缀和: total[i] = 前 i+1 件礼物总价之和.
-std::vector<Gift> ReadAndPrefixSum(int n) {
-    std::vector<Gift> gifts(n);
+vector<Gift> ReadAndPrefixSum(int n) {
+    vector<Gift> gifts(n);
     for (Gift& gift : gifts) {
         scanf("%lld%lld", &gift.price, &gift.shipping);
         gift.total = gift.price + gift.shipping;
@@ -18,13 +20,13 @@ std::vector<Gift> ReadAndPrefixSum(int n) {
     auto cheaper = [](const Gift& a, const Gift& b) {
         return a.total < b.total;
     };
-    std::sort(gifts.begin(), gifts.end(), cheaper);
+    sort(gifts.begin(), gifts.end(), cheaper);
     for (int i = 1; i < n; ++i) gifts[i].total += gifts[i - 1].total;
     return gifts;
 }
 
 // 若第 discounted 件礼物用半价券, 买前 buy 件的最小花费.
-long long Money(const std::vector<Gift>& gifts, int buy, int discounted) {
+long long Money(const vector<Gift>& gifts, int buy, int discounted) {
     long long couponPrice = gifts[discounted].price / 2 + gifts[discounted].shipping;
     if (buy == 1) return couponPrice;
 
@@ -42,7 +44,7 @@ long long Money(const std::vector<Gift>& gifts, int buy, int discounted) {
 int main() {
     int n, budget;
     scanf("%d%d", &n, &budget);
-    std::vector<Gift> gifts = ReadAndPrefixSum(n);
+    vector<Gift> gifts = ReadAndPrefixSum(n);
 
     int answer = 0;
     // 枚举哪件礼物用半价券, 对每件二分能买的最大数量.

@@ -4,33 +4,35 @@
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
 char Buffer[80];
 
 struct TrieNode {
-    std::unordered_map<std::string, int> children; // 形容词 -> 子节点下标
+    unordered_map<string, int> children; // 形容词 -> 子节点下标
     int count = 0;
 };
 
 // Trie 记录所有"没有的牛"; 每个节点的 count 是经过该节点的短语数.
 // 用 vector 存节点、下标代替指针, 避免手工管理内存.
 struct Trie {
-    std::vector<TrieNode> nodes;
+    vector<TrieNode> nodes;
 
     Trie() { nodes.resize(1); }
 
-    void Add(const std::vector<std::string>& words) {
+    void Add(const vector<string>& words) {
         int current = 0;
         ++nodes[current].count;
-        for (const std::string& word : words) {
+        for (const string& word : words) {
             current = Go(current, word);
             ++nodes[current].count;
         }
     }
 
     // 返回形容词 word 对应的子节点下标; 不存在则新建一个.
-    int Go(int node, const std::string& word) {
-        std::unordered_map<std::string, int>& children = nodes[node].children;
-        std::unordered_map<std::string, int>::iterator it = children.find(word);
+    int Go(int node, const string& word) {
+        unordered_map<string, int>& children = nodes[node].children;
+        unordered_map<string, int>::iterator it = children.find(word);
         if (it != children.end()) return it->second;
         int child = nodes.size();
         children[word] = child;
@@ -39,10 +41,10 @@ struct Trie {
     }
 
     // 该层形容词是 word 的"没有的牛"数量; 该形容词不存在则返回 0.
-    int ChildCount(int node, const std::string& word) const {
-        const std::unordered_map<std::string, int>& children =
+    int ChildCount(int node, const string& word) const {
+        const unordered_map<string, int>& children =
             nodes[node].children;
-        std::unordered_map<std::string, int>::const_iterator it =
+        unordered_map<string, int>::const_iterator it =
             children.find(word);
         if (it == children.end()) return 0;
         return nodes[it->second].count;
@@ -50,12 +52,12 @@ struct Trie {
 };
 
 // 读入一句 "Farmer John has no ... cow.", 返回其中的形容词列表.
-std::vector<std::string> ReadAdjectives() {
+vector<string> ReadAdjectives() {
     scanf(" Farmer John has no");
-    std::vector<std::string> words;
+    vector<string> words;
     while (true) {
         scanf("%s", Buffer);
-        std::string word = Buffer;
+        string word = Buffer;
         if (word == "cow.") return words;
         words.push_back(word);
     }
@@ -66,9 +68,9 @@ int main() {
     scanf("%d%d", &n, &k);
 
     Trie trie;
-    std::vector<std::vector<std::string>> byLevel;
+    vector<vector<string>> byLevel;
     for (int i = 0; i < n; ++i) {
-        std::vector<std::string> words = ReadAdjectives();
+        vector<string> words = ReadAdjectives();
         trie.Add(words);
         if (byLevel.size() < words.size()) byLevel.resize(words.size());
         for (int level = 0; level < (int)words.size(); ++level) {
@@ -77,13 +79,13 @@ int main() {
     }
 
     // 每层去重排序, 得到该层可选的形容词集合.
-    for (std::vector<std::string>& level : byLevel) {
-        std::sort(level.begin(), level.end());
-        level.erase(std::unique(level.begin(), level.end()), level.end());
+    for (vector<string>& level : byLevel) {
+        sort(level.begin(), level.end());
+        level.erase(unique(level.begin(), level.end()), level.end());
     }
 
     // comboCount[level] = 该层之后(不含本层)的组合数.
-    std::vector<int> comboCount(byLevel.size());
+    vector<int> comboCount(byLevel.size());
     comboCount.back() = 1;
     for (int level = byLevel.size() - 2; level >= 0; --level) {
         comboCount[level] = comboCount[level + 1] * byLevel[level + 1].size();
@@ -93,9 +95,9 @@ int main() {
     // 第 k 头"有的牛": 逐层选形容词. 该层某形容词的组合总数减去
     // 被列入"没有"的组合, 剩下的都是 FJ 有的牛, 据此跳过.
     int current = 0;
-    std::string answer;
+    string answer;
     for (int level = 0; level < (int)byLevel.size(); ++level) {
-        for (const std::string& word : byLevel[level]) {
+        for (const string& word : byLevel[level]) {
             int available = comboCount[level] - trie.ChildCount(current, word);
             if (k < available) {
                 answer += word;

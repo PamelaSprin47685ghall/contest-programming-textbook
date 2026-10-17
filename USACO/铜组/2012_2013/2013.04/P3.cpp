@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 一段必须被同一张照片覆盖的区间.
 struct Segment {
     int begin, end;
@@ -10,16 +12,16 @@ struct Segment {
 int main() {
     int n, k;
     scanf("%d%d", &n, &k);
-    std::vector<Segment> segments;
+    vector<Segment> segments;
     segments.resize(k);
     for (int i = 0; i < k; ++i) {
         scanf("%d%d", &segments[i].begin, &segments[i].end);
         if (segments[i].end < segments[i].begin) {
-            std::swap(segments[i].begin, segments[i].end);
+            swap(segments[i].begin, segments[i].end);
         }
     }
     // 按右端点排序, 贪心: 每张照片尽量覆盖到最右, 减少照片数.
-    std::sort(segments.begin(), segments.end(), [](const Segment& s0, const Segment& s1) {
+    sort(segments.begin(), segments.end(), [](const Segment& s0, const Segment& s1) {
         return s0.end < s1.end;
     });
     int coveredUntil = 0;

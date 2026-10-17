@@ -1,5 +1,7 @@
 #include <cstdio>
 
+using namespace std;
+
 // 从最高组往低组算：某一组及以上的总人数在赛前赛后的差，
 // 就是升入该组的数量，也就是低一级组升入这一组的人数。
 int main() {

@@ -1,14 +1,17 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
-void Solve() {
-    int n, k;
-    std::string s;
-    std::cin >> n >> k >> s;
+using namespace std;
 
-    std::string ans(n, '.');
+void solve() {
+    int n, k;
+    char buffer[100005];
+    scanf("%d %d %s", &n, &k, buffer);
+    string s = buffer;
+
+    string ans(n, '.');
     int patches = 0;
 
     // 分别贪心安置 G 和 H 草地
@@ -19,7 +22,7 @@ void Solve() {
         if (s[i] == 'G') {
             if (i > lastG + k) {
                 // 需要开辟一块新的 G 草地, 贪心放在 min(n - 1, i + k) 处
-                int pos = std::min(n - 1, i + k);
+                int pos = min(n - 1, i + k);
                 // 如果该格已被占用, 往前找空位
                 while (ans[pos] != '.') {
                     --pos;
@@ -31,7 +34,7 @@ void Solve() {
         } else {
             if (i > lastH + k) {
                 // 需要开辟一块新的 H 草地, 贪心放在 min(n - 1, i + k) 处
-                int pos = std::min(n - 1, i + k);
+                int pos = min(n - 1, i + k);
                 while (ans[pos] != '.') {
                     --pos;
                 }
@@ -42,15 +45,12 @@ void Solve() {
         }
     }
 
-    std::cout << patches << "\n" << ans << "\n";
+    printf("%d\n%s\n", patches, ans.c_str());
 }
 
 int main() {
     int t;
-    if (std::cin >> t) {
-        while (t--) {
-            Solve();
-        }
-    }
+    scanf("%d", &t);
+    while (t--) solve();
     return 0;
 }

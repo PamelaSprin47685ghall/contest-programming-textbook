@@ -3,16 +3,18 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> p(n);
-    std::vector<int> t(n);
+    vector<int> p(n);
+    vector<int> t(n);
     for (int i = 0; i < n; ++i) scanf("%d", &p[i]);
     for (int i = 0; i < n; ++i) scanf("%d", &t[i]);
 
     // diff[i]: 第 i 个隔间需要的温度变化量 (目标温度 - 当前温度)
-    std::vector<int> diff(n);
+    vector<int> diff(n);
     for (int i = 0; i < n; ++i) {
         diff[i] = p[i] - t[i];
     }

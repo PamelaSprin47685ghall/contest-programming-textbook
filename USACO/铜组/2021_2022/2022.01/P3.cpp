@@ -2,10 +2,12 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 void Solve() {
     int n;
     scanf("%d", &n);
-    std::vector<long long> h(n);
+    vector<long long> h(n);
     for (int i = 0; i < n; ++i) {
         scanf("%lld", &h[i]);
     }

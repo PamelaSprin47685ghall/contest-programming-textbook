@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Event {
     int time;
     int milkDelta;
@@ -13,7 +15,7 @@ int Solve() {
     int n, x, y, z;
     scanf("%d%d%d%d", &n, &x, &y, &z);
 
-    std::vector<Event> events;
+    vector<Event> events;
     for (int i = 0; i < n; ++i) {
         int a, b;
         scanf("%d%d", &a, &b);
@@ -21,7 +23,7 @@ int Solve() {
         events.push_back(Event{b + 1, z - y}); // 离开区间: 由 y 变 z
     }
 
-    std::sort(events.begin(), events.end(), [](const Event& e0, const Event& e1) {
+    sort(events.begin(), events.end(), [](const Event& e0, const Event& e1) {
         if (e0.time != e1.time) return e0.time < e1.time;
         return e0.milkDelta < e1.milkDelta;
     });
@@ -30,7 +32,7 @@ int Solve() {
     int answer = 0;      // 与旧实现一致: 从 0 开始取最大
     for (const Event& e : events) {
         current += e.milkDelta;
-        answer = std::max(answer, current);
+        answer = max(answer, current);
     }
     return answer;
 }

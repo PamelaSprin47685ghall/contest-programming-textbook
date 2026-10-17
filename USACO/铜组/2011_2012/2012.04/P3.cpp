@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 一个位置及其高度.
 struct Position {
     int height;
@@ -11,7 +13,7 @@ struct Position {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<Position> positions(n);
+    vector<Position> positions(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d", &positions[i].height);
         positions[i].index = i;
@@ -21,10 +23,10 @@ int main() {
     auto higher = [](const Position& a, const Position& b) {
         return b.height < a.height;  // 高度大的排前面
     };
-    std::sort(positions.begin(), positions.end(), higher);
+    sort(positions.begin(), positions.end(), higher);
 
     // visited[i] 表示位置 i 是否已被水淹没 (左右各留一个哨兵).
-    std::vector<char> visited(n + 2, false);
+    vector<char> visited(n + 2, false);
     int islands = 0;  // 当前水面下的岛屿段数
     int answer = 0;
 
@@ -39,7 +41,7 @@ int main() {
         int j = i;
         while (j < n && positions[j].height == positions[i].height) ++j;
         for (int k = i; k < j; ++k) flood(positions[k].index);
-        answer = std::max(answer, islands);
+        answer = max(answer, islands);
         i = j;
     }
 

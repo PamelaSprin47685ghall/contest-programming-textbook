@@ -3,22 +3,24 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 char Buffer[1000001];
 
 // 判断 s 是否以 prefix 开头.
-bool HasPrefix(const std::string& s, const std::string& prefix) {
+bool HasPrefix(const string& s, const string& prefix) {
     return s.substr(0, prefix.size()) == prefix;
 }
 
 struct Word {
-    std::string text;
+    string text;
     int id; // 输入中的原始编号
 };
 
 bool operator<(const Word& a, const Word& b) { return a.text < b.text; }
 
 struct Words {
-    std::vector<Word> data;
+    vector<Word> data;
 
     void Read(int w) {
         data.resize(w);
@@ -27,14 +29,14 @@ struct Words {
             data[i].text = Buffer;
             data[i].id = i + 1;
         }
-        std::sort(data.begin(), data.end());
+        sort(data.begin(), data.end());
     }
 
     // 返回以 prefix 为前缀的第 k 个单词的编号; 不存在则返回 -1.
-    int Query(int k, const std::string& prefix) {
+    int Query(int k, const string& prefix) {
         Word target{prefix, 0};
         int index =
-            std::lower_bound(data.begin(), data.end(), target) - data.begin();
+            lower_bound(data.begin(), data.end(), target) - data.begin();
         index += k - 1;
         if (index < (int)data.size() &&
             HasPrefix(data[index].text, prefix)) {

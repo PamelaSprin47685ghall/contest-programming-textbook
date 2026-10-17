@@ -1,11 +1,13 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
-bool CanSpell(const std::string& word, const std::vector<std::string>& blocks) {
+using namespace std;
+
+bool CanSpell(const string& word, const vector<string>& blocks) {
     int wlen = word.size();
-    std::vector<int> p = {0, 1, 2, 3};
+    vector<int> p = {0, 1, 2, 3};
 
     // 枚举由哪几只积木分别按序拼出单词的各个字母 (全排列 4! = 24 种)
     do {
@@ -27,27 +29,29 @@ bool CanSpell(const std::string& word, const std::vector<std::string>& blocks) {
             }
         }
         if (match) return true;
-    } while (std::next_permutation(p.begin(), p.end()));
+    } while (next_permutation(p.begin(), p.end()));
 
     return false;
 }
 
 int main() {
     int n;
-    if (!(std::cin >> n)) return 0;
+    char buffer[16];
+    if (scanf("%d", &n) != 1) return 0;
 
-    std::vector<std::string> blocks(4);
+    vector<string> blocks(4);
     for (int i = 0; i < 4; ++i) {
-        std::cin >> blocks[i];
+        scanf("%s", buffer);
+        blocks[i] = buffer;
     }
 
     for (int i = 0; i < n; ++i) {
-        std::string word;
-        std::cin >> word;
+        scanf("%s", buffer);
+        string word = buffer;
         if (CanSpell(word, blocks)) {
-            std::cout << "YES\n";
+            printf("YES\n");
         } else {
-            std::cout << "NO\n";
+            printf("NO\n");
         }
     }
 

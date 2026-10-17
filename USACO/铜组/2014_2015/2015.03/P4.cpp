@@ -3,11 +3,13 @@
 #include <unordered_set>
 #include <vector>
 
+using namespace std;
+
 char buffer[80];
 
 struct Board {
     int n;
-    std::vector<std::string> data;
+    vector<string> data;
 
     void read() {
         scanf("%d", &n);
@@ -23,8 +25,8 @@ struct Paths {
     const Board* board;
     int step;  // 每次移动的步长，正着走为 1，倒着走为 -1。
     // U[i]：走到第 i 行（另一维随之确定）时能形成的所有字符串。
-    std::vector<std::unordered_set<std::string>> strings;
-    std::string current;
+    vector<unordered_set<string>> strings;
+    string current;
 };
 
 // 从 (x, y) 出发，每次只能向右或向下走一步，枚举所有路径上的字符串。
@@ -55,9 +57,9 @@ int main() {
     // 说明整条路径是回文。
     Paths forward = search(board, 1, 0, 0);
     Paths backward = search(board, -1, board.n - 1, board.n - 1);
-    std::unordered_set<std::string> palindromes;
+    unordered_set<string> palindromes;
     for (int i = 0; i < board.n; ++i) {
-        for (const std::string& s : forward.strings[i]) {
+        for (const string& s : forward.strings[i]) {
             if (backward.strings[i].count(s)) palindromes.insert(s);
         }
     }

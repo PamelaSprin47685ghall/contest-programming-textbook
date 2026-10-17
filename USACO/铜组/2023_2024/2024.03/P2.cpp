@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 const int MAXL = 1001;
 int posOnFence[MAXL][MAXL];
 
@@ -14,7 +16,7 @@ int main() {
     int n, p;
     scanf("%d%d", &n, &p);
 
-    std::vector<Point> posts(p);
+    vector<Point> posts(p);
     for (int i = 0; i < p; ++i) {
         scanf("%d%d", &posts[i].x, &posts[i].y);
     }
@@ -34,7 +36,7 @@ int main() {
 
         int dx = (end.x > start.x) - (end.x < start.x);
         int dy = (end.y > start.y) - (end.y < start.y);
-        int dist = std::abs(end.x - start.x) + std::abs(end.y - start.y);
+        int dist = abs(end.x - start.x) + abs(end.y - start.y);
 
         for (int step = 0; step < dist; ++step) {
             posOnFence[start.x][start.y] = perimeter++;
@@ -50,8 +52,8 @@ int main() {
         int d1 = posOnFence[x1][y1];
         int d2 = posOnFence[x2][y2];
 
-        int straightDist = std::abs(d1 - d2);
-        int circularDist = std::min(straightDist, perimeter - straightDist);
+        int straightDist = abs(d1 - d2);
+        int circularDist = min(straightDist, perimeter - straightDist);
         printf("%d\n", circularDist);
     }
 

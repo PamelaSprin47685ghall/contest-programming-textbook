@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Plant {
     long long h, a, t;
 };
@@ -9,14 +11,14 @@ struct Plant {
 void Solve() {
     int n;
     scanf("%d", &n);
-    std::vector<Plant> p(n);
+    vector<Plant> p(n);
     for (int i = 0; i < n; ++i) scanf("%lld", &p[i].h);
     for (int i = 0; i < n; ++i) scanf("%lld", &p[i].a);
     for (int i = 0; i < n; ++i) scanf("%lld", &p[i].t);
 
     // 目标是经过 day 天后, 第 i 株植物的高度排名恰好为 p[i].t
     // 将植物按照目标名次 t 排序: 最终要求 height[0] > height[1] > ... > height[n-1]
-    std::sort(p.begin(), p.end(), [](const Plant& x, const Plant& y) {
+    sort(p.begin(), p.end(), [](const Plant& x, const Plant& y) {
         return x.t < y.t;
     });
 
@@ -38,7 +40,7 @@ void Solve() {
             // day * aDiff > -hDiff => day >= floor((-hDiff) / aDiff) + 1
             if (hDiff <= 0) {
                 long long req = (-hDiff) / aDiff + 1;
-                minDay = std::max(minDay, req);
+                minDay = max(minDay, req);
             }
         } else {
             // aDiff < 0: day * (-aDiff) < hDiff
@@ -47,7 +49,7 @@ void Solve() {
                 return;
             }
             long long lim = (hDiff - 1) / (-aDiff);
-            maxDay = std::min(maxDay, lim);
+            maxDay = min(maxDay, lim);
         }
     }
 

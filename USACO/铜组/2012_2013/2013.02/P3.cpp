@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 const int M = 102;  // 坐标范围 0..100, 留一圈边界便于外部连通.
 
 const int DX[4] = {1, 0, -1, 0};
@@ -8,10 +10,10 @@ const int DY[4] = {0, 1, 0, -1};
 
 // 网格: ' ' 空地, 'X' 图案, 'A' 已从外部访问到的空地.
 struct Board {
-    std::vector<std::vector<char>> data;
+    vector<vector<char>> data;
 
     void Read() {
-        data.assign(M, std::vector<char>(M, ' '));
+        data.assign(M, vector<char>(M, ' '));
         int n;
         scanf("%d", &n);
         for (int i = 0; i < n; ++i) {

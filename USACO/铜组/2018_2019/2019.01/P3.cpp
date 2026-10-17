@@ -1,18 +1,19 @@
-#include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Animal {
-    std::string name;
-    std::vector<std::string> traits;
+    string name;
+    vector<string> traits;
 };
 
 // 计算两只动物拥有的共同特征数
 int CommonTraits(const Animal& a, const Animal& b) {
     int common = 0;
-    for (const std::string& t1 : a.traits) {
-        for (const std::string& t2 : b.traits) {
+    for (const string& t1 : a.traits) {
+        for (const string& t2 : b.traits) {
             if (t1 == t2) {
                 ++common;
                 break;
@@ -24,15 +25,18 @@ int CommonTraits(const Animal& a, const Animal& b) {
 
 int main() {
     int n;
-    if (!(std::cin >> n)) return 0;
+    scanf("%d", &n);
 
-    std::vector<Animal> animals(n);
+    vector<Animal> animals(n);
+    char buf[80];
     for (int i = 0; i < n; ++i) {
         int k;
-        std::cin >> animals[i].name >> k;
+        scanf("%s%d", buf, &k);
+        animals[i].name = buf;
         animals[i].traits.resize(k);
         for (int j = 0; j < k; ++j) {
-            std::cin >> animals[i].traits[j];
+            scanf("%s", buf);
+            animals[i].traits[j] = buf;
         }
     }
 
@@ -47,6 +51,6 @@ int main() {
         }
     }
 
-    std::cout << maxCommon + 1 << "\n";
+    printf("%d\n", maxCommon + 1);
     return 0;
 }

@@ -3,10 +3,12 @@
 #include <numeric>
 #include <vector>
 
+using namespace std;
+
 void Solve() {
     int n;
     scanf("%d", &n);
-    std::vector<int> a(n);
+    vector<int> a(n);
     int sum = 0;
     for (int i = 0; i < n; ++i) {
         scanf("%d", &a[i]);

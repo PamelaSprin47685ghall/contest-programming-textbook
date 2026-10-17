@@ -1,12 +1,14 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
 
     // outDegree[i]: 站点 i 的出度 (以此为起点的单向传送带数量)
-    std::vector<int> outDegree(n + 1, 0);
+    vector<int> outDegree(n + 1, 0);
     for (int i = 0; i < n - 1; ++i) {
         int u, v;
         scanf("%d%d", &u, &v);

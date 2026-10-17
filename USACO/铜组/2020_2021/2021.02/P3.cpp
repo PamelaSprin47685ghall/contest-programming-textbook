@@ -1,13 +1,16 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
+
+using namespace std;
 
 int main() {
     int n;
-    if (!(std::cin >> n)) return 0;
+    if (scanf("%d", &n) != 1) return 0;
 
+    char buffer[105];
     for (int t = 0; t < n; ++t) {
-        std::string s;
-        std::cin >> s;
+        scanf("%s", buffer);
+        string s = buffer;
 
         // 统计沿闭合路径走一周转过的总拐角和
         // 右转 (顺时针) 记为 +90 度, 左转 (逆时针) 记为 -90 度
@@ -31,9 +34,9 @@ int main() {
 
         // 完整闭合无自交环路顺时针转角和必为 +360 度, 逆时针为 -360 度
         if (totalTurn > 0) {
-            std::cout << "CW\n";
+            printf("CW\n");
         } else {
-            std::cout << "CCW\n";
+            printf("CCW\n");
         }
     }
 

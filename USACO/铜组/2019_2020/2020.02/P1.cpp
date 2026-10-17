@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Point {
     int x, y;
 };
@@ -10,7 +12,7 @@ struct Point {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<Point> pts(n);
+    vector<Point> pts(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d%d", &pts[i].x, &pts[i].y);
     }
@@ -24,7 +26,7 @@ int main() {
             for (int k = 0; k < n; ++k) {
                 if (pts[i].x != pts[k].x) continue;  // ik 平行于 y 轴
 
-                int twiceArea = std::abs(pts[j].x - pts[i].x) * std::abs(pts[k].y - pts[i].y);
+                int twiceArea = abs(pts[j].x - pts[i].x) * abs(pts[k].y - pts[i].y);
                 if (twiceArea > maxTwiceArea) {
                     maxTwiceArea = twiceArea;
                 }

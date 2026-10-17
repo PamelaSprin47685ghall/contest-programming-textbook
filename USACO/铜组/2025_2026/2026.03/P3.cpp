@@ -1,79 +1,91 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdio>
+#include <string>
+#include <vector>
+
 using namespace std;
 
+struct Move {
+    int type;
+    int a;
+    int b;
+    int c;
+};
+
+int rowCount, columnCount;
+vector<string> row;
+vector<vector<int> > has;
+vector<Move> moves;
+
+void applyMove(int type, int a, int b, int c) {
+    Move move;
+    move.type = type;
+    move.a = a + 1;
+    move.b = b + 1;
+    move.c = c + 1;
+    moves.push_back(move);
+
+    if (type == 1) {
+        swap(row[a][b], row[a][c]);
+    } else {
+        has[a][row[a][c] - 'a']--;
+        has[b][row[b][c] - 'a']--;
+        swap(row[a][c], row[b][c]);
+        has[a][row[a][c] - 'a']++;
+        has[b][row[b][c] - 'a']++;
+    }
+}
+
 void solve() {
-    int n, m;
-    cin >> n >> m;
+    scanf("%d %d", &rowCount, &columnCount);
+    char buffer[1005];
+    scanf("%s", buffer);
+    string target = buffer;
 
-    string t;
-    cin >> t;
-
-    vector<string> s(n);
-    for (int i = 0; i < n; i++) cin >> s[i];
-
-    vector<vector<int>> has(n, vector<int>(26, 0));
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            has[i][s[i][j] - 'a']++;
-        }
+    row.assign(rowCount, "");
+    for (int i = 0; i < rowCount; ++i) {
+        scanf("%s", buffer);
+        row[i] = buffer;
     }
 
-    vector<array<int, 4>> ops;
+    has.assign(rowCount, vector<int>(26, 0));
+    for (int i = 0; i < rowCount; ++i) {
+        for (int j = 0; j < columnCount; ++j) ++has[i][row[i][j] - 'a'];
+    }
+    moves.clear();
 
-    auto op = [&](int type, int a, int b, int c) {
-        // store 1-indexed for printing
-        ops.push_back({type, a + 1, b + 1, c + 1});
-
-        if (type == 1) {
-            swap(s[a][b], s[a][c]);
-        } else {
-            has[a][s[a][c] - 'a']--;
-            has[b][s[b][c] - 'a']--;
-            swap(s[a][c], s[b][c]);
-            has[a][s[a][c] - 'a']++;
-            has[b][s[b][c] - 'a']++;
-        }
-    };
-
-    // Swap within s1 to fix as many positions as possible
-    for (int i = 0; i < m; i++) {
-        if (s[0][i] != t[i]) {
-            for (int j = 0; j < m; j++) {
-                if (s[0][j] == t[i] && s[0][j] != t[j]) {
-                    op(1, 0, i, j);
-                    break;
-                }
+    // 先在第一行内部对调，能对上的位置就地解决。
+    for (int i = 0; i < columnCount; ++i) {
+        if (row[0][i] == target[i]) continue;
+        for (int j = 0; j < columnCount; ++j) {
+            if (row[0][j] == target[i] && row[0][j] != target[j]) {
+                applyMove(1, 0, i, j);
+                break;
             }
         }
     }
 
-    // Import needed characters from other rows
-    for (int i = 0; i < m; i++) {
-        if (s[0][i] != t[i]) {
-            for (int j = 1; j < n; j++) {
-                if (has[j][t[i] - 'a']) {
-                	// find the column
-                    int idx = int(find(s[j].begin(), s[j].end(), t[i]) - s[j].begin());
-                    op(1, j, i, idx);
-                    op(2, 0, j, i);
-                    break;
-                }
-            }
+    // 第一行缺的字母，从别的行把对应列换进来。
+    for (int i = 0; i < columnCount; ++i) {
+        if (row[0][i] == target[i]) continue;
+        for (int j = 1; j < rowCount; ++j) {
+            if (!has[j][target[i] - 'a']) continue;
+            int index = (int)(find(row[j].begin(), row[j].end(), target[i]) - row[j].begin());
+            applyMove(1, j, i, index);
+            applyMove(2, 0, j, i);
+            break;
         }
     }
 
-    printf("%d\n", (int)ops.size());
-    for (auto &v : ops) {
-        printf("%d %d %d %d\n", v[0], v[1], v[2], v[3]);
+    printf("%d\n", (int)moves.size());
+    for (int i = 0; i < (int)moves.size(); ++i) {
+        printf("%d %d %d %d\n", moves[i].type, moves[i].a, moves[i].b, moves[i].c);
     }
 }
 
 int main() {
-    cin.tie(0) -> sync_with_stdio(0);
-
-    int T;
-    cin >> T;
-    while (T--) solve();
+    int testCount;
+    scanf("%d", &testCount);
+    while (testCount--) solve();
     return 0;
 }

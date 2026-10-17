@@ -2,9 +2,11 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Points {
     int n;
-    std::vector<int> x, y;
+    vector<int> x, y;
 
     void Read() {
         scanf("%d", &n);
@@ -24,7 +26,7 @@ int Direction(const Points& points, int p0, int p1) {
 // 枚举所有点的排列, 要求相邻两步方向必须不同 (不能走直线).
 struct Search {
     const Points* points;
-    std::vector<int> order;   // 当前排列, 下标 0 固定为起点
+    vector<int> order;   // 当前排列, 下标 0 固定为起点
     int answer = 0;
 
     void Compute(int index, int lastDirection) {
@@ -37,13 +39,13 @@ struct Search {
             return;
         }
         for (int i = index; i <= points->n; ++i) {
-            std::swap(order[index], order[i]);
+            swap(order[index], order[i]);
             int nextDirection = Direction(*points, order[index - 1], order[index]);
             // 方向必须非零 (不能原地不动), 且与上一步不同.
             if (nextDirection % 2 != 0 && nextDirection != lastDirection) {
                 Compute(index + 1, nextDirection);
             }
-            std::swap(order[index], order[i]);
+            swap(order[index], order[i]);
         }
     }
 };

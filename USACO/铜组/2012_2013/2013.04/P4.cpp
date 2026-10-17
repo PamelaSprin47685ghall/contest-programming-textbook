@@ -4,9 +4,11 @@
 #include <utility>
 #include <vector>
 
+using namespace std;
+
 // 图: 只保留编号更小的邻居, 便于按编号顺序放置时增量计算代价.
 struct Graph {
-    std::vector<std::vector<int>> out;
+    vector<vector<int>> out;
 
     void Read() {
         int n;
@@ -25,8 +27,8 @@ struct Graph {
 // 枚举牛的排列 (每头牛在围栏里的顺序), 用对称性和最优性剪枝.
 struct DFS {
     const Graph* graph;
-    int answer = std::numeric_limits<int>::max();
-    std::vector<int> position;  // position[i] = 第 i 头牛在排列中的位置.
+    int answer = numeric_limits<int>::max();
+    vector<int> position;  // position[i] = 第 i 头牛在排列中的位置.
 
     void Compute(int no, int cost) {
         if (answer <= cost) return;
@@ -35,17 +37,17 @@ struct DFS {
             return;
         }
         for (int i = no; i < (int)graph->out.size(); ++i) {
-            std::swap(position[no], position[i]);
+            swap(position[no], position[i]);
             int newCost = cost;
             // 与已放置的邻居连线: 每根线穿过 (距离-1) 头牛.
             for (int j : graph->out[no]) {
-                newCost += std::abs(position[j] - position[no]) - 1;
+                newCost += abs(position[j] - position[no]) - 1;
             }
             // 左右对称只搜一半: 固定第一头牛在排列的前半.
             if (position[0] * 2 < (int)graph->out.size()) {
                 Compute(no + 1, newCost);
             }
-            std::swap(position[no], position[i]);
+            swap(position[no], position[i]);
         }
     }
 };

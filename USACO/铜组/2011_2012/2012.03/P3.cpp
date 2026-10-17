@@ -3,6 +3,8 @@
 #include <unordered_set>
 #include <vector>
 
+using namespace std;
+
 // 一条指令序列的效果: 先位移 (x, y), 再整体逆时针转 direction 次.
 struct Effect {
     int x = 0;
@@ -46,7 +48,7 @@ Effect SingleEffect(char command) {
 }
 
 // 把一条序列的效果合并起来.
-Effect SequenceEffect(const std::string& s, int begin, int end) {
+Effect SequenceEffect(const string& s, int begin, int end) {
     Effect result;
     for (int i = begin; i < end; ++i) result = result.Combine(SingleEffect(s[i]));
     return result;
@@ -55,16 +57,16 @@ Effect SequenceEffect(const std::string& s, int begin, int end) {
 int main() {
     char buffer[100001];
     scanf("%s", buffer);
-    std::string s = buffer;
+    string s = buffer;
 
     // 后缀效果: suffix[i] = 从 i 到末尾的序列效果.
-    std::vector<Effect> suffix((int)s.size() + 1);
+    vector<Effect> suffix((int)s.size() + 1);
     for (int i = (int)s.size() - 1; i >= 0; --i) {
         suffix[i] = SingleEffect(s[i]).Combine(suffix[i + 1]);
     }
 
     // 枚举每个位置改成另外两种指令之一, 收集所有不同的终点.
-    std::unordered_set<Effect, EffectHash, EffectEq> endpoints;
+    unordered_set<Effect, EffectHash, EffectEq> endpoints;
     Effect prefix;  // 当前位置之前的序列效果
     const char commands[3] = {'F', 'L', 'R'};
 

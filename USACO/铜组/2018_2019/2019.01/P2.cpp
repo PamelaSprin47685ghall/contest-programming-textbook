@@ -1,10 +1,12 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> cows(n);
+    vector<int> cows(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d", &cows[i]);
     }

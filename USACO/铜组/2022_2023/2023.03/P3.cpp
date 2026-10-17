@@ -1,17 +1,19 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n, k, t;
     if (scanf("%d%d%d", &n, &k, &t) != 3) return 0;
 
-    std::vector<int> a(k + 2);
+    vector<int> a(k + 2);
     for (int i = 1; i <= k; ++i) {
         scanf("%d", &a[i]);
     }
     a[k + 1] = n;
 
-    std::vector<int> ans(n);
+    vector<int> ans(n);
 
     // 对于每个区间 [A[i], A[i+1]) 中的每个初始位置 j
     for (int i = 1; i <= k; ++i) {

@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 一段连续同 ID 的牛. Good 表示删掉 GoodID 这种牛后, 本段能与
 // 前面合并出的最长连续段长度; 没有可合并对象时 GoodID = -1.
 struct Segment {
@@ -13,10 +15,10 @@ struct Segment {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> cows(n);
+    vector<int> cows(n);
     for (int& cow : cows) scanf("%d", &cow);
 
-    std::vector<Segment> segments;
+    vector<Segment> segments;
     int answer = 0;
 
     // 把连续相同的 ID 合并成一段, 逐段计算.

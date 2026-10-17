@@ -1,6 +1,7 @@
-#include <algorithm>
 #include <cstdio>
 #include <vector>
+
+using namespace std;
 
 struct SwapMove {
     int a, b, g;
@@ -9,7 +10,7 @@ struct SwapMove {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<SwapMove> moves(n);
+    vector<SwapMove> moves(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d%d%d", &moves[i].a, &moves[i].b, &moves[i].g);
     }

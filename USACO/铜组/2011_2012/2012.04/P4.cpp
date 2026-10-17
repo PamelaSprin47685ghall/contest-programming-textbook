@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 三个图形各占 10x10 的网格, true 表示该格有方块.
 struct Figure {
     bool cells[10][10] = {};
@@ -65,8 +67,8 @@ int main() {
     // BFS 搜索偏移状态 (dx1,dy1,dx2,dy2), 范围限制在 [-20,20].
     const int LIM = 20;
     const int W = 2 * LIM + 1;  // 41
-    std::vector<char> seen(W * W * W * W, 0);
-    std::vector<int> qx1, qy1, qx2, qy2;
+    vector<char> seen(W * W * W * W, 0);
+    vector<int> qx1, qy1, qx2, qy2;
     auto encode = [&](int a, int b, int c, int d) {
         return ((a + LIM) * W + (b + LIM)) * W * W +
                (c + LIM) * W + (d + LIM);

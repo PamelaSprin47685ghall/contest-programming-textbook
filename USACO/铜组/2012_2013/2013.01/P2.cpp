@@ -3,6 +3,8 @@
 #include <limits>
 #include <vector>
 
+using namespace std;
+
 // 覆盖次数变化的事件: 在某个时间点覆盖层数增加或减少 1.
 struct Event {
     int time;
@@ -10,7 +12,7 @@ struct Event {
 };
 
 struct Events {
-    std::vector<Event> events;
+    vector<Event> events;
 
     void Read() {
         int n, at = 0;
@@ -34,10 +36,10 @@ struct Events {
 
     // 按时间排序后扫描, 累加覆盖至少 2 层的区间长度.
     int Process() {
-        std::sort(events.begin(), events.end(), [](const Event& e0, const Event& e1) {
+        sort(events.begin(), events.end(), [](const Event& e0, const Event& e1) {
             return e0.time < e1.time;
         });
-        int previousTime = std::numeric_limits<int>::min();
+        int previousTime = numeric_limits<int>::min();
         int thickness = 0;
         int answer = 0;
         for (const Event& e : events) {

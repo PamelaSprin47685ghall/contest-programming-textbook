@@ -2,14 +2,16 @@
 #include <cstdio>
 #include <string>
 
+using namespace std;
+
 // 二进制大数: 低位存前面 (Data[0] 是最低位), 方便逐位相加进位.
 struct BigBinary {
-    std::string digits;
+    string digits;
 
     // 从字符串 (高位在前) 读入, 反转成低位在前的存储.
-    void FromString(const std::string& s) {
+    void FromString(const string& s) {
         digits = s;
-        std::reverse(digits.begin(), digits.end());
+        reverse(digits.begin(), digits.end());
     }
 
     // 把另一个二进制数加到自身 (逐位相加, 处理进位).
@@ -27,9 +29,9 @@ struct BigBinary {
         if (carry != 0) digits += '0' + carry;
     }
 
-    std::string ToString() const {
-        std::string result(digits);
-        std::reverse(result.begin(), result.end());
+    string ToString() const {
+        string result(digits);
+        reverse(result.begin(), result.end());
         return result;
     }
 };
@@ -37,7 +39,7 @@ struct BigBinary {
 int main() {
     char buffer[1001];
     scanf("%s", buffer);
-    std::string s = buffer;
+    string s = buffer;
 
     // N * 17 = N * 16 + N = N 后面补四个 0, 再与 N 相加.
     BigBinary shifted;

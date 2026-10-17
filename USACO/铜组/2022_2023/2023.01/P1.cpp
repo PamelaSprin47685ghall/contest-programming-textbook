@@ -1,16 +1,18 @@
-#include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
-    std::string s;
-    if (!(std::cin >> n >> s)) return 0;
+    char buffer[100005];
+    scanf("%d %s", &n, buffer);
+    string s = buffer;
 
-    std::vector<int> e(n);
+    vector<int> e(n);
     for (int i = 0; i < n; ++i) {
-        std::cin >> e[i];
+        scanf("%d", &e[i]);
         --e[i];  // 转换为 0-based
     }
 
@@ -64,6 +66,6 @@ int main() {
         }
     }
 
-    std::cout << pairs << "\n";
+    printf("%lld\n", pairs);
     return 0;
 }

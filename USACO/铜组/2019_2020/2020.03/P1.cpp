@@ -1,28 +1,31 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
-    std::string s;
-    if (!(std::cin >> n >> s)) return 0;
+    char buf[100005];
+    if (scanf("%d %s", &n, buf) != 2) return 0;
+    string s = buf;
 
-    std::vector<int> ones;
+    vector<int> ones;
     for (int i = 0; i < n; ++i) {
         if (s[i] == '1') ones.push_back(i);
     }
 
     // 全为 0 的特殊情况: 放在两端 0 和 n-1
     if (ones.empty()) {
-        std::cout << n - 1 << "\n";
+        printf("%d\n", n - 1);
         return 0;
     }
 
     // 计算已有 1 之间的最小距离
     int minExistingDist = n;
-    for (std::size_t i = 1; i < ones.size(); ++i) {
-        minExistingDist = std::min(minExistingDist, ones[i] - ones[i - 1]);
+    for (size_t i = 1; i < ones.size(); ++i) {
+        minExistingDist = min(minExistingDist, ones[i] - ones[i - 1]);
     }
 
     // 二分答案 D: 能否放置 2 头新牛, 使得所有牛两两距离至少为 D
@@ -33,7 +36,7 @@ int main() {
         placed += ones[0] / d;
 
         // 2. 中间区间 [ones[i-1], ones[i]]
-        for (std::size_t i = 1; i < ones.size(); ++i) {
+        for (size_t i = 1; i < ones.size(); ++i) {
             int gap = ones[i] - ones[i - 1];
             if (gap >= 2 * d) {
                 placed += (gap / d) - 1;
@@ -57,6 +60,6 @@ int main() {
         }
     }
 
-    std::cout << bestD << "\n";
+    printf("%d\n", bestD);
     return 0;
 }

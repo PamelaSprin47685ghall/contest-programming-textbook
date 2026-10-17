@@ -3,15 +3,17 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Segment {
-    std::string type;
+    string type;
     int low, high;
 };
 
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<Segment> segs(n);
+    vector<Segment> segs(n);
     char buf[16];
     for (int i = 0; i < n; ++i) {
         scanf("%s%d%d", buf, &segs[i].low, &segs[i].high);
@@ -23,13 +25,13 @@ int main() {
     int maxFlow = 1000000000;
     for (int i = n - 1; i >= 0; --i) {
         if (segs[i].type == "none") {
-            minFlow = std::max(minFlow, segs[i].low);
-            maxFlow = std::min(maxFlow, segs[i].high);
+            minFlow = max(minFlow, segs[i].low);
+            maxFlow = min(maxFlow, segs[i].high);
         } else if (segs[i].type == "on") {
             // 正向时加了 [low, high], 逆向推前则减去 [low, high]
             minFlow -= segs[i].high;
             maxFlow -= segs[i].low;
-            minFlow = std::max(0, minFlow);
+            minFlow = max(0, minFlow);
         } else if (segs[i].type == "off") {
             // 正向时减了 [low, high], 逆向推前则加上 [low, high]
             minFlow += segs[i].low;
@@ -43,15 +45,15 @@ int main() {
     maxFlow = 1000000000;
     for (int i = 0; i < n; ++i) {
         if (segs[i].type == "none") {
-            minFlow = std::max(minFlow, segs[i].low);
-            maxFlow = std::min(maxFlow, segs[i].high);
+            minFlow = max(minFlow, segs[i].low);
+            maxFlow = min(maxFlow, segs[i].high);
         } else if (segs[i].type == "on") {
             minFlow += segs[i].low;
             maxFlow += segs[i].high;
         } else if (segs[i].type == "off") {
             minFlow -= segs[i].high;
             maxFlow -= segs[i].low;
-            minFlow = std::max(0, minFlow);
+            minFlow = max(0, minFlow);
         }
     }
     printf("%d %d\n", minFlow, maxFlow);

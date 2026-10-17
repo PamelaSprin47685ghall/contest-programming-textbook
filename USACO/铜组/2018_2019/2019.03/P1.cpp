@@ -2,6 +2,8 @@
 #include <cmath>
 #include <cstdio>
 
+using namespace std;
+
 int main() {
     int barnR = 0, barnC = 0;
     int lakeR = 0, lakeC = 0;
@@ -24,13 +26,13 @@ int main() {
         }
     }
 
-    int dist = std::abs(barnR - lakeR) + std::abs(barnC - lakeC);
+    int dist = abs(barnR - lakeR) + abs(barnC - lakeC);
 
     // 只有当 B 与 L 在同一行或同一列, 且岩石 R 恰好夹在两者正中间时, 必须额外绕行 2 步.
     bool blockedInRow = (barnR == lakeR && barnR == rockR &&
-                         std::min(barnC, lakeC) < rockC && rockC < std::max(barnC, lakeC));
+                         min(barnC, lakeC) < rockC && rockC < max(barnC, lakeC));
     bool blockedInCol = (barnC == lakeC && barnC == rockC &&
-                         std::min(barnR, lakeR) < rockR && rockR < std::max(barnR, lakeR));
+                         min(barnR, lakeR) < rockR && rockR < max(barnR, lakeR));
 
     if (blockedInRow || blockedInCol) {
         printf("%d\n", dist + 1);

@@ -1,8 +1,10 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 求从节点 no 出发沿 b 走回 no 的循环节大小.
-int FindCycleSize(const std::vector<int>& next, std::vector<int>& visited,
+int FindCycleSize(const vector<int>& next, vector<int>& visited,
                   int start) {
     int count = 0;
     int current = start;
@@ -18,7 +20,7 @@ int FindCycleSize(const std::vector<int>& next, std::vector<int>& visited,
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> a(n), b(n), position(n), visited(n, false);
+    vector<int> a(n), b(n), position(n), visited(n, false);
     for (int& value : a) scanf("%d", &value);
     for (int& value : b) scanf("%d", &value);
     // position[value] = 该值在 b 中的位置; b[i]-1 是 0 基下标.

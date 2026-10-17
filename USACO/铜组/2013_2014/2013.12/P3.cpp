@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
 struct Point {
     int id, x, y;
 };
@@ -10,16 +12,16 @@ struct Point {
 // 按 y 分组, 每组内按 x 排序, 得到每个点向右走会到达的点.
 // rightOf[i] = i 号点向右走到的点; 若右边没有点则为 -1.
 struct RightNeighbors {
-    std::vector<int> rightOf;
+    vector<int> rightOf;
 
-    void Compute(const std::vector<Point>& points,
-                 const std::unordered_map<int, std::vector<Point>>& byRow) {
+    void Compute(const vector<Point>& points,
+                 const unordered_map<int, vector<Point>>& byRow) {
         rightOf.resize(points.size(), -1);
         for (const auto& row : byRow) {
-            const std::vector<Point>& sameRow = row.second;
-            std::vector<Point> sorted = sameRow;
-            std::sort(sorted.begin(), sorted.end(),
-                      [](const Point& a, const Point& b) { return a.x < b.x; });
+            const vector<Point>& sameRow = row.second;
+            vector<Point> sorted = sameRow;
+            sort(sorted.begin(), sorted.end(),
+                 [](const Point& a, const Point& b) { return a.x < b.x; });
             for (int i = 0; i + 1 < (int)sorted.size(); ++i) {
                 rightOf[sorted[i].id] = sorted[i + 1].id;
             }
@@ -30,9 +32,9 @@ struct RightNeighbors {
 // 判断给定配对下, 从任意点出发沿"向右走, 再经虫洞跳回"是否陷入环.
 // 用状态 1(正在访问) 2(已结束) 做环检测.
 struct LoopChecker {
-    const std::vector<int>* rightOf;
-    const std::vector<int>* pair;
-    std::vector<int> state;
+    const vector<int>* rightOf;
+    const vector<int>* pair;
+    vector<int> state;
 
     bool HasCycle(int node) {
         if (state[node] == 1) return true;
@@ -55,8 +57,8 @@ struct LoopChecker {
 
 // 枚举所有两两配对, 统计其中会形成环的配对数.
 struct PairSearch {
-    const std::vector<int>* rightOf;
-    std::vector<int> pair;
+    const vector<int>* rightOf;
+    vector<int> pair;
 
     int Count() {
         pair.assign(rightOf->size(), -1);
@@ -87,8 +89,8 @@ struct PairSearch {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<Point> points(n);
-    std::unordered_map<int, std::vector<Point>> byRow;
+    vector<Point> points(n);
+    unordered_map<int, vector<Point>> byRow;
     for (int i = 0; i < n; ++i) {
         points[i].id = i;
         scanf("%d%d", &points[i].x, &points[i].y);

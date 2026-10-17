@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Point {
     int x;
     int y;
@@ -10,7 +12,7 @@ struct Point {
 int main() {
     int n, m;
     scanf("%d%d", &n, &m);
-    std::vector<std::string> board(n);
+    vector<string> board(n);
     char buffer[80];
     for (int i = 0; i < n; ++i) {
         scanf("%s", buffer);
@@ -35,7 +37,7 @@ int main() {
     auto isStart = [&](int x, int y) {
         return horizontalStart(x, y) || verticalStart(x, y);
     };
-    std::vector<Point> answer;
+    vector<Point> answer;
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
             if (isStart(i, j)) answer.push_back(Point{i, j});

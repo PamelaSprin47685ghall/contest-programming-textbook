@@ -1,5 +1,7 @@
 #include <cstdio>
 
+using namespace std;
+
 const int MAXC = 1001;
 bool hasCow[MAXC][MAXC];
 int adjCows[MAXC][MAXC];

@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 把每段限速和每段实际速度的起点都记成一个事件，按坐标排序后扫描：
 // 每到达一个边界先结算上一段（用当前的限速与实际速度），
 // 再切换到新一段的数值。
@@ -19,7 +21,7 @@ int main() {
     int n, m;
     scanf("%d%d", &n, &m);
 
-    std::vector<Event> events;
+    vector<Event> events;
     int limitPos = 0, speedPos = 0;
     for (int i = 0; i < n; ++i) {
         int length, limit;
@@ -34,7 +36,7 @@ int main() {
         speedPos += length;
     }
     events.push_back(Event{100, 2, 0});
-    std::sort(events.begin(), events.end());
+    sort(events.begin(), events.end());
 
     int currentLimit = 0, currentSpeed = 0;
     int lastX = 0, answer = 0;
@@ -42,7 +44,7 @@ int main() {
         if (lastX < e.X) {
             lastX = e.X;
             // 上一段内超出的速度，取所有段的最大值
-            answer = std::max(answer, currentSpeed - currentLimit);
+            answer = max(answer, currentSpeed - currentLimit);
         }
         if (e.Type == 0) {
             currentLimit = e.Value;

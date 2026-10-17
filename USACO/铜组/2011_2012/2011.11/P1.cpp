@@ -1,5 +1,7 @@
 #include <cstdio>
 
+using namespace std;
+
 // 把 11 月 11 日 11:11 记为基准时刻, 计算给定时刻距基准的分钟数.
 int MinutesSince(int day, int hour, int minute) {
     return (day * 24 + hour) * 60 + minute;

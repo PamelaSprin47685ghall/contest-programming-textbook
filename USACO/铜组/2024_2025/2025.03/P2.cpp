@@ -1,16 +1,18 @@
-#include <iostream>
+#include <cstdio>
 #include <vector>
- 
+
+using namespace std;
+
 int main() {
   int t;
-  std::cin >> t;
+  scanf("%d", &t);
   for(int cn = 1; cn <= t; cn++) {
     int n;
-    std::cin >> n;
-    std::vector<int> f(n+1);
+    scanf("%d", &n);
+    vector<int> f(n+1);
     for(int i = 0; i < n; i++) {
       int x;
-      std::cin >> x;
+      scanf("%d", &x);
       f[x]++;
     }
     int ret = 0;
@@ -21,6 +23,6 @@ int main() {
       else if(f[i] >= 2) ret += 2;
       seen = true;
     }
-    std::cout << ret << "\n";
+    printf("%d\n", ret);
   }
 }

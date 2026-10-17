@@ -1,40 +1,42 @@
-#include <cassert>
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdio>
+#include <vector>
+
 using namespace std;
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    int T;
-    cin >> T;
-    for (int tc = 0; tc < T; ++tc) {
-        int N, K;
-        cin >> N >> K;
-        vector<int> cnt(N);
-        for (int i = 0; i < N; ++i) {
-            int x;
-            cin >> x;
-            ++cnt.at(x - 1);
-        }
-        if (K < 0) {
-            reverse(begin(cnt), end(cnt));
-            K *= -1;
-        }
-        assert(0 < K && K <= N);
-        int64_t ans = 0;
-
-        for (int i = 0; i < K; ++i) {  // process remainder i mod K
-            int64_t cur_min = i;
-            int cnt_min = 0;
-            while (cur_min < N || cnt_min > 0) {
-                if (cur_min < N) cnt_min += cnt.at(cur_min);
-                if (cnt_min > 0) ans += cnt_min - 1;
-                cur_min += K;
-                if (cnt_min > 0) --cnt_min;
-            }
-        }
-
-        cout << ans << "\n";
+void solve() {
+    int n, k;
+    scanf("%d %d", &n, &k);
+    vector<int> cnt(n);
+    for (int i = 0; i < n; ++i) {
+        int value;
+        scanf("%d", &value);
+        ++cnt[value - 1];
     }
+    if (k < 0) {
+        reverse(cnt.begin(), cnt.end());
+        k = -k;
+    }
+    long long ans = 0;
+
+    // 余数相同的数才能互相撞车。每条链上多出来的数只能往更大的空位搬。
+    for (int i = 0; i < k; ++i) {
+        long long cur = i;
+        int waiting = 0;
+        while (cur < n || waiting > 0) {
+            if (cur < n) waiting += cnt[(int)cur];
+            if (waiting > 0) ans += waiting - 1;
+            cur += k;
+            if (waiting > 0) --waiting;
+        }
+    }
+
+    printf("%lld\n", ans);
+}
+
+int main() {
+    int testCount;
+    scanf("%d", &testCount);
+    while (testCount--) solve();
+    return 0;
 }

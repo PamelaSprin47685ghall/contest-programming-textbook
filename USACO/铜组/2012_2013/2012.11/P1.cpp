@@ -1,10 +1,12 @@
 #include <cstdio>
 #include <string>
 
+using namespace std;
+
 int main() {
     char buffer[50001];
     scanf("%s", buffer);
-    std::string s = buffer;
+    string s = buffer;
 
     // left: 已经出现的 "((" 对数; 每遇到一个 "))" 都能与之前的 "((" 组成一对.
     int left = 0;

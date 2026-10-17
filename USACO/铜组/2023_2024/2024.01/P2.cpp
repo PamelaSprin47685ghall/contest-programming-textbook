@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Cell {
     int type;  // 0: 跳板, 1: 目标
     int val;
@@ -11,12 +13,12 @@ int main() {
     scanf("%d%d", &n, &s);
     --s;  // 转换为 0-based
 
-    std::vector<Cell> grid(n);
+    vector<Cell> grid(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d%d", &grid[i].type, &grid[i].val);
     }
 
-    std::vector<bool> broken(n, false);
+    vector<bool> broken(n, false);
     int brokenCount = 0;
 
     int pos = s;

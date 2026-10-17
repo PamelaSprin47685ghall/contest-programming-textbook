@@ -1,31 +1,38 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Constraint {
-    std::string cow1;
-    std::string cow2;
+    string cow1;
+    string cow2;
 };
 
 int main() {
     int n;
-    if (!(std::cin >> n)) return 0;
+    if (scanf("%d", &n) != 1) return 0;
 
-    std::vector<Constraint> constraints(n);
+    vector<Constraint> constraints(n);
     for (int i = 0; i < n; ++i) {
-        std::string junk;
-        std::cin >> constraints[i].cow1 >> junk >> junk >> junk >> junk >> constraints[i].cow2;
+        char name1[64], name2[64], junk[64];
+        scanf("%s", name1);
+        for (int j = 0; j < 4; ++j) scanf("%s", junk);
+        scanf("%s", name2);
+        constraints[i].cow1 = name1;
+        constraints[i].cow2 = name2;
     }
 
     // 8 头奶牛的名字
-    std::vector<std::string> cows = {
+    vector<string> cows = {
         "Bessie", "Buttercup", "Belinda", "Beatrice",
         "Bella", "Blue", "Betsy", "Sue"
     };
 
     // 按照字典序从小到大排序, 保证全排列搜索最先得到字典序最小的方案
-    std::sort(cows.begin(), cows.end());
+    sort(cows.begin(), cows.end());
 
     do {
         bool valid = true;
@@ -36,7 +43,7 @@ int main() {
                 if (cows[i] == c.cow1) pos1 = i;
                 if (cows[i] == c.cow2) pos2 = i;
             }
-            if (std::abs(pos1 - pos2) != 1) {
+            if (abs(pos1 - pos2) != 1) {
                 valid = false;
                 break;
             }
@@ -44,11 +51,11 @@ int main() {
 
         if (valid) {
             for (int i = 0; i < 8; ++i) {
-                std::cout << cows[i] << "\n";
+                printf("%s\n", cows[i].c_str());
             }
             return 0;
         }
-    } while (std::next_permutation(cows.begin(), cows.end()));
+    } while (next_permutation(cows.begin(), cows.end()));
 
     return 0;
 }

@@ -1,5 +1,7 @@
 #include <cstdio>
 
+using namespace std;
+
 const int SIZE = 5;
 
 const int DX[4] = {1, 0, -1, 0};

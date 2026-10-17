@@ -1,12 +1,14 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 检查日志是否自洽, 若自洽则算出最少/最多可能的驯服次数.
 // 成功返回 true 并写出 min 和 max; 矛盾返回 false.
 bool Compute(int& min, int& max) {
     int n;
     scanf("%d", &n);
-    std::vector<int> a(n);
+    vector<int> a(n);
     for (int i = 0; i < n; ++i) scanf("%d", &a[i]);
     // 第 0 天必须发生一次驯服.
     if (0 < a[0]) return false;

@@ -2,15 +2,17 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n, l;
     scanf("%d%d", &n, &l);
-    std::vector<int> c(n);
+    vector<int> c(n);
     for (int i = 0; i < n; ++i) {
         scanf("%d", &c[i]);
     }
 
-    std::sort(c.rbegin(), c.rend());
+    sort(c.rbegin(), c.rend());
 
     // 原始状态下的 h 指数
     int h = 0;

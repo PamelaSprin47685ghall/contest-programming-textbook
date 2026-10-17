@@ -1,55 +1,46 @@
-#include "bits/extc++.h"
- 
+#include <algorithm>
+#include <cstdio>
+#include <string>
+#include <vector>
+
 using namespace std;
- 
-using ll = long long;
- 
-#define sz(x) int((x).size())
- 
-constexpr ll mod = 1e9+7;
- 
-void solve(){
-    string s;
-    cin>>s;
-    ll moves=0;
-    int n=sz(s);
-    ll tpow[n]{}; // powers of 2
-    tpow[0]=1;
-    for(int i = 1; i<n; i++){
-        tpow[i]=(tpow[i-1]*2)%mod;
+
+const long long MOD = 1000000007LL;
+
+char digits[200005];
+
+void solve() {
+    scanf("%s", digits);
+    string s = digits;
+    long long moves = 0;
+    int n = (int)s.size();
+    vector<long long> power(n);
+    power[0] = 1;
+    for (int i = 1; i < n; ++i) power[i] = (power[i - 1] * 2) % MOD;
+
+    // 不是 0/1 的数字先按奇偶压成 0/1，这一步只算一次。
+    bool binary = true;
+    for (int i = 0; i < n; ++i) {
+        if (s[i] != '0' && s[i] != '1') binary = false;
     }
-    {
-        // first make all digits 0 or 1
-        bool all01=1;
-        for(auto u: s){
-            if(u!='0' && u!='1'){
-                all01=0;
-                break;
-            }
-        }
-        if(!all01){
-            moves++;
-            for(auto &u: s){
-                u=char(((u-'0')%2)+'0');
-            }
+    if (!binary) {
+        ++moves;
+        for (int i = 0; i < n; ++i) s[i] = char(((s[i] - '0') % 2) + '0');
+    }
+
+    reverse(s.begin(), s.end());
+    for (int i = 0; i < n; ++i) {
+        if (s[i] == '1') {
+            if (i == 0) ++moves;
+            else moves = (moves + power[i] + power[i - 1]) % MOD;
         }
     }
-    reverse(s.begin(),s.end());
-    for(int i = 0; i<n; i++){
-        if(s[i]=='1'){
-            if(i==0)moves++;
-            else{
-                moves=(moves+tpow[i]+tpow[i-1])%mod;
-            }
-        }
-    }
-    cout<<moves<<"\n";
+    printf("%lld\n", moves);
 }
- 
-int main(){
-    cin.tie(0)->sync_with_stdio(0);
-    cin.exceptions(ios::failbit);
-    int t;
-    cin>>t;
-    while(t--)solve();
+
+int main() {
+    int testCount;
+    scanf("%d", &testCount);
+    while (testCount--) solve();
+    return 0;
 }

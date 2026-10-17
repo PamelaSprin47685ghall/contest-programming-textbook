@@ -3,9 +3,11 @@
 #include <deque>
 #include <vector>
 
+using namespace std;
+
 // 阶层顺序: 记录必须按给定次序出现的牛(其余牛可任意穿插).
 struct Ordered {
-    std::vector<int> Data;  // 阶层牛的编号(0 基).
+    vector<int> Data;  // 阶层牛的编号(0 基).
 
     void Read(int m) {
         Data.resize(m);
@@ -24,15 +26,15 @@ struct Ordered {
 
     // 反转顺序, 便于从后往前构造.
     Ordered& Reverse() {
-        std::reverse(Data.begin(), Data.end());
+        reverse(Data.begin(), Data.end());
         return *this;
     }
 };
 
 // 一个挤奶顺序安排.
 struct Arrange {
-    std::vector<int> Cow;  // Cow[pos] = 该位置的牛编号, -1 表示未定.
-    std::vector<int> At;   // At[cow] = 牛 cow 的位置, -1 表示未定.
+    vector<int> Cow;  // Cow[pos] = 该位置的牛编号, -1 表示未定.
+    vector<int> At;   // At[cow] = 牛 cow 的位置, -1 表示未定.
 
     void Read(int n, int k) {
         Cow.assign(n, -1);
@@ -67,7 +69,7 @@ struct Arrange {
     }
 
     Arrange& Reverse() {
-        std::reverse(Cow.begin(), Cow.end());
+        reverse(Cow.begin(), Cow.end());
         return *this;
     }
 

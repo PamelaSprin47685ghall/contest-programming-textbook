@@ -1,6 +1,5 @@
 #include <algorithm>
-#include <ios>
-#include <iostream>
+#include <cstdio>
 #include <vector>
 
 using namespace std;
@@ -11,7 +10,7 @@ void solve() {
     int n;
     int q;
 
-    cin >> n >> k >> q;
+    scanf("%d %d %d", &n, &k, &q);
 
     int mx_sum = 0;
     vector<vector<int>> sums(n, vector<int>(n));
@@ -21,7 +20,7 @@ void solve() {
         int c;
         int r;
         int v;
-        cin >> r >> c >> v;
+        scanf("%d %d %d", &r, &c, &v);
         --r;
         --c;
         const int diff = v - vals[r][c];
@@ -32,16 +31,12 @@ void solve() {
                 mx_sum = max(mx_sum, sums[j][l]);
             }
         }
-        cout << mx_sum << '\n';
+        printf("%d\n", mx_sum);
     }
 
 }
 
 int main() {
-
-    cin.tie(nullptr);
-
-    ios_base::sync_with_stdio(false);
 
     solve();
 

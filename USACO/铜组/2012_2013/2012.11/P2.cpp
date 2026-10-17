@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 // 一段括号串的净效果: right 个未匹配右括号在前, left 个未匹配左括号在后.
 struct Effect {
     int right = 0;
@@ -28,10 +30,10 @@ Effect EffectOf(char c) {
 int main() {
     char buffer[100001];
     scanf("%s", buffer);
-    std::string s = buffer;
+    string s = buffer;
 
     // suffix[i]: 从 i 到末尾这一段串的净效果.
-    std::vector<Effect> suffix(s.size() + 1);
+    vector<Effect> suffix(s.size() + 1);
     for (int i = (int)s.size() - 1; i >= 0; --i) {
         suffix[i] = EffectOf(s[i]).Combine(suffix[i + 1]);
     }

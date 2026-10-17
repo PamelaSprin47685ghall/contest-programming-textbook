@@ -1,9 +1,12 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
 
+using namespace std;
+
 void Solve() {
-    std::string s;
-    std::cin >> s;
+    char buf[100005];
+    scanf("%s", buf);
+    string s = buf;
 
     // 博弈论分析:
     // 每次可以减去一个回文数 (所有 1..9 都是回文数).
@@ -12,15 +15,15 @@ void Solve() {
     // 必定使得数字变成非 10 的倍数!
     // 因此 10 的倍数是必败态 (后手 Elsie 必胜), 其余是必胜态 (先手 Bessie 必胜).
     if (s.back() == '0') {
-        std::cout << "E\n";
+        printf("E\n");
     } else {
-        std::cout << "B\n";
+        printf("B\n");
     }
 }
 
 int main() {
     int t;
-    if (std::cin >> t) {
+    if (scanf("%d", &t) == 1) {
         while (t--) {
             Solve();
         }

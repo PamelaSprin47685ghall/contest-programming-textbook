@@ -1,10 +1,12 @@
 #include <algorithm>
 #include <cstdio>
 
+using namespace std;
+
 // 模拟倒牛奶的过程: 把牛奶从源桶倒入目标桶, 直到源桶倒空或目标桶装满.
 void Pour(int sourceCapacity, int& sourceMilk, int targetCapacity, int& targetMilk) {
     (void)sourceCapacity;
-    int amount = std::min(sourceMilk, targetCapacity - targetMilk);
+    int amount = min(sourceMilk, targetCapacity - targetMilk);
     sourceMilk -= amount;
     targetMilk += amount;
 }

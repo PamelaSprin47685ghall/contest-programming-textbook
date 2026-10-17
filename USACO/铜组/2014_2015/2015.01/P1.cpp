@@ -3,8 +3,10 @@
 #include <limits>
 #include <vector>
 
+using namespace std;
+
 // 判断航线 route 上是否先出现 a 再出现 b（a 在 b 之前）。
-bool canReach(int a, int b, const std::vector<int>& route) {
+bool canReach(int a, int b, const vector<int>& route) {
     int k = 0;
     while (k < (int)route.size() && route[k] != a) ++k;
     while (k < (int)route.size() && route[k] != b) ++k;
@@ -14,15 +16,15 @@ bool canReach(int a, int b, const std::vector<int>& route) {
 int main() {
     int a, b, n;
     scanf("%d%d%d", &a, &b, &n);
-    int answer = std::numeric_limits<int>::max();
+    int answer = numeric_limits<int>::max();
     for (int i = 0; i < n; ++i) {
         int cost, k;
         scanf("%d%d", &cost, &k);
-        std::vector<int> route(k);
+        vector<int> route(k);
         for (int j = 0; j < k; ++j) scanf("%d", &route[j]);
-        if (canReach(a, b, route)) answer = std::min(answer, cost);
+        if (canReach(a, b, route)) answer = min(answer, cost);
     }
-    if (answer == std::numeric_limits<int>::max()) {
+    if (answer == numeric_limits<int>::max()) {
         printf("-1\n");
     } else {
         printf("%d\n", answer);

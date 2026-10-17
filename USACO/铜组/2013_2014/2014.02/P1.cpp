@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 char Buffer[1001];
 
 // 方向编码: 0=右 1=上 2=左 3=下
@@ -17,12 +19,12 @@ const int REFLECT[2][4] = {
 
 struct Board {
     int n, m;
-    std::vector<std::string> grid;
+    vector<string> grid;
 
     void Read() {
         scanf("%d%d", &n, &m);
         grid.resize(n);
-        for (std::string& row : grid) {
+        for (string& row : grid) {
             scanf("%s", Buffer);
             row = Buffer;
         }
@@ -32,12 +34,12 @@ struct Board {
         int answer = 0;
         // 从四条边的每个格子射入光束, 统计能照亮的格子数, 取最大.
         for (int i = 0; i < n; ++i) {
-            answer = std::max(answer, Visit(0, i, 0));     // 左边界向右射
-            answer = std::max(answer, Visit(2, i, m - 1)); // 右边界向左射
+            answer = max(answer, Visit(0, i, 0));     // 左边界向右射
+            answer = max(answer, Visit(2, i, m - 1)); // 右边界向左射
         }
         for (int i = 0; i < m; ++i) {
-            answer = std::max(answer, Visit(1, n - 1, i)); // 下边界向上射
-            answer = std::max(answer, Visit(3, 0, i));     // 上边界向下射
+            answer = max(answer, Visit(1, n - 1, i)); // 下边界向上射
+            answer = max(answer, Visit(3, 0, i));     // 上边界向下射
         }
         return answer;
     }

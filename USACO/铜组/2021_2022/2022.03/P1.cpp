@@ -1,18 +1,21 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
-    std::string s;
-    if (!(std::cin >> n >> s)) return 0;
+    char buffer[200005];
+    if (scanf("%d%s", &n, buffer) != 2) return 0;
+    string s = buffer;
 
     // 将序列两两分组:
     // (奇数位, 偶数位)
     // "GG" 或 "HH": 翻转前后内部都不变, 无影响, 直接忽略
     // "GH": 初始时 G 位于奇数位 (不良状态), 翻转后变成 "HG"
     // "HG": 初始时 G 位于偶数位 (优良状态), 翻转后变成 "GH"
-    std::vector<char> simplified;
+    vector<char> simplified;
     for (int i = 0; i < n; i += 2) {
         if (s[i] == 'G' && s[i + 1] == 'H') {
             simplified.push_back('G');  // 表示当前为未满足状态
@@ -35,6 +38,6 @@ int main() {
         }
     }
 
-    std::cout << reversals << "\n";
+    printf("%d\n", reversals);
     return 0;
 }

@@ -2,6 +2,8 @@
 #include <utility>
 #include <vector>
 
+using namespace std;
+
 struct Edge {
     int to;
     char relation;  // 'S' 或 'D'.
@@ -9,8 +11,8 @@ struct Edge {
 
 struct Graph {
     int n;
-    std::vector<std::vector<Edge>> out;
-    std::vector<bool> hasDegree;  // 是否出现在任何约束里.
+    vector<vector<Edge>> out;
+    vector<bool> hasDegree;  // 是否出现在任何约束里.
 
     void Read() {
         int k;
@@ -22,7 +24,7 @@ struct Graph {
             int v0, v1;
             scanf(" %c%d%d", &relation, &v0, &v1);
             // 约束只挂在编号较大的牛身上, 保证按牛编号顺序决策即可检查.
-            if (v1 < v0) std::swap(v0, v1);
+            if (v1 < v0) swap(v0, v1);
             out[v1 - 1].push_back(Edge{v0 - 1, relation});
             hasDegree[v0 - 1] = true;
             hasDegree[v1 - 1] = true;
@@ -33,7 +35,7 @@ struct Graph {
 // 按编号顺序给每头牛定品种 (0/1/2), 遇到约束时检查是否满足.
 struct DFS {
     const Graph* graph;
-    std::vector<int> color;
+    vector<int> color;
 
     int Put(int no) {
         if (no == graph->n) return 1;

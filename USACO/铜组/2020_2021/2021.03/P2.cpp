@@ -1,27 +1,32 @@
-#include <iostream>
+#include <cstdio>
 #include <map>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int k, n;
-    if (!(std::cin >> k >> n)) return 0;
+    if (scanf("%d%d", &k, &n) != 2) return 0;
 
-    std::vector<std::string> names(n);
-    std::map<std::string, int> nameToId;
+    vector<string> names(n);
+    map<string, int> nameToId;
+    char buffer[64];
     for (int i = 0; i < n; ++i) {
-        std::cin >> names[i];
+        scanf("%s", buffer);
+        names[i] = buffer;
         nameToId[names[i]] = i;
     }
 
     // answer[i][j]: '?' 未知, '0' i 比 j 资历低 (更初级), '1' i 比 j 资历高, 'B' 同一人
-    std::vector<std::string> answer(n, std::string(n, '?'));
+    vector<string> answer(n, string(n, '?'));
     for (int i = 0; i < n; ++i) answer[i][i] = 'B';
 
     for (int p = 0; p < k; ++p) {
-        std::vector<std::string> authors(n);
+        vector<string> authors(n);
         for (int i = 0; i < n; ++i) {
-            std::cin >> authors[i];
+            scanf("%s", buffer);
+            authors[i] = buffer;
         }
 
         // 寻找付出努力不同的分界点:
@@ -46,7 +51,7 @@ int main() {
     }
 
     for (int i = 0; i < n; ++i) {
-        std::cout << answer[i] << "\n";
+        printf("%s\n", answer[i].c_str());
     }
     return 0;
 }

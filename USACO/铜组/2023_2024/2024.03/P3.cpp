@@ -2,18 +2,20 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 void Solve() {
     int n;
     scanf("%d", &n);
-    std::vector<int> h(n - 1);
+    vector<int> h(n - 1);
     for (int i = 0; i < n - 1; ++i) {
         scanf("%d", &h[i]);
     }
 
-    std::vector<bool> has(n + 1, false);
+    vector<bool> has(n + 1, false);
     for (int v : h) has[v] = true;
 
-    std::vector<int> notHas;
+    vector<int> notHas;
     for (int i = 1; i <= n; ++i) {
         if (!has[i]) notHas.push_back(i);
     }
@@ -27,7 +29,7 @@ void Solve() {
         return;
     }
 
-    std::vector<int> p(n);
+    vector<int> p(n);
     if (notHas.size() == 1) {
         p[0] = 1;
         p[n - 1] = notHas[0];

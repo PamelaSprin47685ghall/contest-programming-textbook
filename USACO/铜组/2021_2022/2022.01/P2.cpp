@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <cstdio>
 
+using namespace std;
+
 bool Beats(const int d1[4], const int d2[4]) {
     int wins = 0;
     int losses = 0;

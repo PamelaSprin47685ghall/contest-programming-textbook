@@ -3,14 +3,16 @@
 #include <unordered_set>
 #include <vector>
 
+using namespace std;
+
 char Buffer[80];
 
 // 把牛名映射成整数编号, 用哈希集合去重.
 struct Strings {
-    std::vector<std::string> Data;
-    std::unordered_set<std::string> Index;
+    vector<string> Data;
+    unordered_set<string> Index;
 
-    int GetIndex(const std::string& name) {
+    int GetIndex(const string& name) {
         auto result = Index.insert(name);
         if (result.second) Data.push_back(name);
         // 找到该名字在 Data 中的位置.
@@ -28,8 +30,8 @@ struct Strings {
 
 // 家族树, 用"每个节点指向其母亲"的边存储.
 struct FamilyTree {
-    std::vector<int> Parent;  // Parent[child] = mother 编号, -1 表示无母亲.
-    std::vector<int> Depth;   // 到根(祖先)的距离, -1 表示未算.
+    vector<int> Parent;  // Parent[child] = mother 编号, -1 表示无母亲.
+    vector<int> Depth;   // 到根(祖先)的距离, -1 表示未算.
 
     void SetParent(int child, int parent) {
         if ((int)Parent.size() <= child) Parent.resize(child + 1, -1);
@@ -52,8 +54,8 @@ struct FamilyTree {
         };
         // 保证 c0 不比 c1 浅, 这样先抬 c1.
         if (depthLess(c1, c0)) {
-            std::swap(c0, c1);
-            std::swap(n0, n1);
+            swap(c0, c1);
+            swap(n0, n1);
         }
         while (depthLess(c0, c1)) {
             ++*n1;
@@ -91,8 +93,8 @@ int main() {
     } else {
         // n0 和 n1 中较小者是"长辈"那一侧.
         if (n1 < n0) {
-            std::swap(n0, n1);
-            std::swap(cow0, cow1);
+            swap(n0, n1);
+            swap(cow0, cow1);
         }
         printf("%s is the ", names.Data[cow0].c_str());
         for (int i = 0; i < n1 - 2; ++i) printf("great-");

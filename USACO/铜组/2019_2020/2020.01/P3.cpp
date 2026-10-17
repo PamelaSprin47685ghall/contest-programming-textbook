@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <cstdio>
 
+using namespace std;
+
 // 计算在终点限速不超过 x 的条件下跑完 k 米所需的最少秒数
 int Solve(long long k, long long x) {
     long long distLeft = 0;   // 从起点开始加速跑过的距离

@@ -1,12 +1,14 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int k, n;
     scanf("%d%d", &k, &n);
 
     // rank[session][cow]: 在第 session 轮训练中, 奶牛 cow 的名次 (1-based)
-    std::vector<std::vector<int>> ranking(k, std::vector<int>(n + 1));
+    vector<vector<int>> ranking(k, vector<int>(n + 1));
     for (int s = 0; s < k; ++s) {
         for (int r = 1; r <= n; ++r) {
             int cow;

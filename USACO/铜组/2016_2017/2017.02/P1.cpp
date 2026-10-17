@@ -1,11 +1,13 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
     // side[cow] 记录每头牛最近一次看到的所在侧, -1 表示还没出现过.
-    std::vector<int> side(11, -1);
+    vector<int> side(11, -1);
     int answer = 0;
     for (int i = 0; i < n; ++i) {
         int cow, s;

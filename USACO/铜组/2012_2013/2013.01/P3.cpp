@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 并查集节点: 记录父节点, 与父节点是否异色 (d), 以及集合大小.
 struct Vertex {
     int parent = -1;
@@ -9,7 +11,7 @@ struct Vertex {
 };
 
 struct UnionFind {
-    std::vector<Vertex> vertices;
+    vector<Vertex> vertices;
 
     // 找到 no 的根, 并把 no 与根的关系写入 rootRelation (no 到根的路径异或和).
     int Find(int no, int& rootRelation) {
@@ -34,7 +36,7 @@ struct UnionFind {
         if (root0 == root1) return (d == 0);
         // 小集合挂到大集合下, 保持树平衡.
         if (vertices[root1].size < vertices[root0].size) {
-            std::swap(root0, root1);
+            swap(root0, root1);
         }
         // d 是两棵树的根之间的异色关系 (异或对称, 交换后无需取反).
         vertices[root0].parent = root1;

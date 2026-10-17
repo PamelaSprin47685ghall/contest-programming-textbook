@@ -1,11 +1,19 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <numeric>
+#include <string>
+#include <vector>
+
 using namespace std;
 
 int solve() {
     int N, A, B;
-    cin >> N >> A >> B;
+    scanf("%d%d%d", &N, &A, &B);
     vector<string> rows(N);
-    for (auto &row : rows) cin >> row;
+    char buffer[1005];
+    for (auto &row : rows) {
+        scanf("%s", buffer);
+        row = buffer;
+    }
     vector<vector<bool>> has_star(N, vector<bool>(N));
     for (int r = 0; r < N; ++r)
         for (int c = 0; c < N; ++c)
@@ -29,9 +37,7 @@ int solve() {
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
     int T;
-    cin >> T;
-    while (T--) cout << solve() << "\n";
+    scanf("%d", &T);
+    while (T--) printf("%d\n", solve());
 }

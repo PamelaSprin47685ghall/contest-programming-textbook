@@ -2,9 +2,11 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int n;
-std::vector<int> counts;
-std::vector<std::vector<int>> recipe;
+vector<int> counts;
+vector<vector<int>> recipe;
 
 // 递归尝试合成 1 单位目标金属 targetMetal:
 // 若成功合成返回 true 并实际扣除消耗的原料, 否则返回 false
@@ -21,7 +23,7 @@ bool Synthesize(int target) {
     // 尝试递归满足合成该金属所需的所有原料
     // 注意若中途合成失败, 需要支持回溯 (或由于每次只合成 1 单位, 贪心合成也是等价的)
     // 题目保证每个原料编号严格小于 target (无环 DAG)
-    std::vector<int> consumed;
+    vector<int> consumed;
     for (int ingredient : recipe[target]) {
         if (Synthesize(ingredient)) {
             consumed.push_back(ingredient);

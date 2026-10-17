@@ -1,14 +1,16 @@
-#include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 
-void Solve() {
-    std::string s;
-    std::cin >> s;
-    int len = s.size();
+using namespace std;
+
+void solve() {
+    char buffer[100005];
+    scanf("%s", buffer);
+    string s = buffer;
+    int len = (int)s.size();
 
     if (len < 3) {
-        std::cout << -1 << "\n";
+        printf("-1\n");
         return;
     }
 
@@ -23,14 +25,13 @@ void Solve() {
     // 其余以 O 作为两端, 中间为 M 的 (形如 *M*) 永远无法变成 MOO (中间不能被修改)
     int minExtra = 100;
     for (int i = 0; i + 3 <= len; ++i) {
-        std::string sub = s.substr(i, 3);
-        if (sub[1] != 'O') {
+        if (s[i + 1] != 'O') {
             continue;  // 中间字母必须是 'O', 因为操作只能替换首尾字符
         }
 
         int extra = 0;
-        if (sub[0] != 'M') ++extra;
-        if (sub[2] != 'O') ++extra;
+        if (s[i] != 'M') ++extra;
+        if (s[i + 2] != 'O') ++extra;
 
         if (extra < minExtra) {
             minExtra = extra;
@@ -38,18 +39,15 @@ void Solve() {
     }
 
     if (minExtra == 100) {
-        std::cout << -1 << "\n";
+        printf("-1\n");
     } else {
-        std::cout << (len - 3) + minExtra << "\n";
+        printf("%d\n", (len - 3) + minExtra);
     }
 }
 
 int main() {
     int q;
-    if (std::cin >> q) {
-        while (q--) {
-            Solve();
-        }
-    }
+    scanf("%d", &q);
+    while (q--) solve();
     return 0;
 }

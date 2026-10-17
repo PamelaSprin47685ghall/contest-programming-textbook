@@ -1,13 +1,13 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstdio>
+#include <vector>
+
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    int N; cin >> N;
+    int N; scanf("%d", &N);
     vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
+    for (int i = 0; i < N; i++) scanf("%d", &A[i]);
 
     // cnt[i] = # of times the number `i` appears in A
     vector<int> cnt(N+1);
@@ -19,7 +19,7 @@ int main() {
     int missing_lt_i = 0;
 
     for (int i = 0; i <= N; i++) {
-        cout << max(cnt[i], missing_lt_i) << "\n";
+        printf("%d\n", max(cnt[i], missing_lt_i));
         bool is_i_missing_from_A = cnt[i] == 0;
         if (is_i_missing_from_A) {
             missing_lt_i++;

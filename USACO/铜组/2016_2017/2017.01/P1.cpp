@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
 const char* CowName[7] = {"Bessie",   "Elsie",  "Daisy",     "Gertie",
                           "Annabelle", "Maggie", "Henrietta"};
 
@@ -13,25 +15,25 @@ char Buffer[80];
 int main() {
     int n;
     scanf("%d", &n);
-    std::unordered_map<std::string, int> milk;
+    unordered_map<string, int> milk;
     for (int i = 0; i < n; ++i) {
         int amount;
         scanf("%s%d", Buffer, &amount);
         milk[Buffer] += amount;
     }
     // 先找最低产奶量, 第二低只能在其余牛里找.
-    int lowest = std::numeric_limits<int>::max();
+    int lowest = numeric_limits<int>::max();
     for (int i = 0; i < 7; ++i) {
-        lowest = std::min(lowest, milk[CowName[i]]);
+        lowest = min(lowest, milk[CowName[i]]);
     }
-    int second_lowest = std::numeric_limits<int>::max();
+    int second_lowest = numeric_limits<int>::max();
     for (int i = 0; i < 7; ++i) {
         int amount = milk[CowName[i]];
         if (amount != lowest) {
-            second_lowest = std::min(second_lowest, amount);
+            second_lowest = min(second_lowest, amount);
         }
     }
-    std::vector<int> candidates;
+    vector<int> candidates;
     for (int i = 0; i < 7; ++i) {
         if (milk[CowName[i]] == second_lowest) {
             candidates.emplace_back(i);

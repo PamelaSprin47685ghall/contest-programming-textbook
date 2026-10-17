@@ -2,11 +2,13 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 用差分数组记录每个位置的草量, 再做前缀和得到每个位置的总草量.
 // 然后滑动一个宽度为 2K+1 的区间, 求区间草量和的最大值.
 int main() {
     const int MAX_POSITION = 1000000;
-    std::vector<int> grass(MAX_POSITION + 2);
+    vector<int> grass(MAX_POSITION + 2);
     int n, k;
     scanf("%d%d", &n, &k);
     for (int i = 0; i < n; ++i) {
@@ -23,7 +25,7 @@ int main() {
         int right = left + k + k + 1; // 区间 [left, right] 宽 2K+1
         if (right >= (int)grass.size()) right = (int)grass.size() - 1;
         int sum = grass[right] - grass[left];
-        answer = std::max(answer, sum);
+        answer = max(answer, sum);
     }
     printf("%d\n", answer);
     return 0;

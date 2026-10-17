@@ -1,9 +1,11 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int n, k;
-std::vector<std::string> grid;
+vector<string> grid;
 int pathCount;
 
 // (r, c): 当前所在坐标
@@ -34,10 +36,12 @@ void Dfs(int r, int c, int dir, int turnsLeft) {
 }
 
 void Solve() {
-    std::cin >> n >> k;
+    scanf("%d%d", &n, &k);
     grid.resize(n);
+    char buffer[64];
     for (int i = 0; i < n; ++i) {
-        std::cin >> grid[i];
+        scanf("%s", buffer);
+        grid[i] = buffer;
     }
 
     pathCount = 0;
@@ -50,12 +54,12 @@ void Solve() {
         Dfs(1, 0, 1, k);
     }
 
-    std::cout << pathCount << "\n";
+    printf("%d\n", pathCount);
 }
 
 int main() {
     int t;
-    if (std::cin >> t) {
+    if (scanf("%d", &t) == 1) {
         while (t--) {
             Solve();
         }

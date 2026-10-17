@@ -1,12 +1,14 @@
 #include <algorithm>
 #include <cstdio>
 
+using namespace std;
+
 int main() {
     int nums[7];
     for (int i = 0; i < 7; ++i) {
         scanf("%d", &nums[i]);
     }
-    std::sort(nums, nums + 7);
+    sort(nums, nums + 7);
 
     int a = nums[0];
     int b = nums[1];

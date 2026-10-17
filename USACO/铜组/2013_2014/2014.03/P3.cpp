@@ -4,19 +4,21 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 char Buffer[101];
 
 const int DX[4]{1, 0, -1, 0};
 const int DY[4]{0, 1, 0, -1};
 
 struct Board {
-    std::vector<std::string> grid;
+    vector<string> grid;
 
     void Read() {
         int n;
         scanf("%d", &n);
         grid.resize(n);
-        for (std::string& row : grid) {
+        for (string& row : grid) {
             scanf("%s", Buffer);
             row = Buffer;
         }
@@ -26,17 +28,17 @@ struct Board {
 // 统计连通分量个数. sameColor 决定两个格子是否算同一颜色,
 // 用于区分"原色"与"把 G 看成 R"两种视角.
 int CountRegions(const Board& board,
-                 const std::function<bool(char, char)>& sameColor) {
+                 const function<bool(char, char)>& sameColor) {
     int size = board.grid.size();
-    std::vector<std::vector<bool>> visited(size,
-                                           std::vector<bool>(size, false));
+    vector<vector<bool>> visited(size,
+                                 vector<bool>(size, false));
     int answer = 0;
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             if (visited[i][j]) continue;
             ++answer;
             // 深度优先扩展当前连通分量.
-            std::vector<int> stack;
+            vector<int> stack;
             stack.push_back(i);
             stack.push_back(j);
             visited[i][j] = true;

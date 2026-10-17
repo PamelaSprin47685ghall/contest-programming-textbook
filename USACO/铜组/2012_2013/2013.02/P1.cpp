@@ -1,13 +1,15 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 const int NotVisited = 0;
 const int Visiting = 1;
 const int NoLoop = 2;  // 该点出发的消息最终会停止.
 const int Loop = 3;    // 该点出发的消息会陷入循环.
 
 struct Cows {
-    std::vector<int> forward;  // 每头牛把消息传给谁 (0 基), -1 表示传给农夫 (停止).
+    vector<int> forward;  // 每头牛把消息传给谁 (0 基), -1 表示传给农夫 (停止).
 
     void Read() {
         int n;
@@ -23,7 +25,7 @@ struct Cows {
 // 判断从 no 出发的消息是否陷入循环, 同时给所有途经点打上状态.
 struct DFS {
     const Cows* cows;
-    std::vector<int> status;
+    vector<int> status;
 
     bool VisitLoop(int no) {
         if (cows->forward[no] == -1) status[no] = NoLoop;

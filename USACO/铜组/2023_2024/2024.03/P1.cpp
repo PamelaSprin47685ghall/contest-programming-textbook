@@ -1,22 +1,23 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
+
+using namespace std;
 
 const int INF = 1000000000;
 
 int main() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
-
     int n, q;
-    if (!(std::cin >> n >> q)) return 0;
+    if (scanf("%d%d", &n, &q) != 2) return 0;
 
-    std::vector<std::string> s(n);
+    char buf[16];
+    vector<string> s(n);
     for (int i = 0; i < n; ++i) {
-        std::cin >> s[i];
+        scanf("%s", buf);
+        s[i] = buf;
     }
 
-    std::vector<int> group(n);
+    vector<int> group(n);
     int groupNo = 0;
     for (int i = 0; i < n; ++i) {
         if (s[i] == "or") {
@@ -26,8 +27,8 @@ int main() {
         }
     }
 
-    std::vector<int> firstFalse(groupNo + 1, INF);
-    std::vector<int> lastFalse(groupNo + 1, -1);
+    vector<int> firstFalse(groupNo + 1, INF);
+    vector<int> lastFalse(groupNo + 1, -1);
     for (int i = 0; i < n; i += 2) {
         int g = group[i];
         if (s[i] == "false") {
@@ -51,8 +52,8 @@ int main() {
 
     while (q--) {
         int l, r;
-        std::string target;
-        std::cin >> l >> r >> target;
+        scanf("%d%d%s", &l, &r, buf);
+        string target = buf;
         --l; --r;
 
         int lGroup = group[l];
@@ -60,18 +61,18 @@ int main() {
 
         // 如果在被替换区间外侧已经存在恒为 true 的与块, 整个表达式恒为 true
         if (totalFirstTrue < lGroup || totalLastTrue > rGroup) {
-            std::cout << (target == "true" ? 'Y' : 'N');
+            printf("%c", target == "true" ? 'Y' : 'N');
             continue;
         }
 
         if (target == "true") {
             // 检查 lGroup 在 l 之前是否已经含有 false, 以及 rGroup 在 r 之后是否含有 false
-            std::cout << (firstFalse[lGroup] < l || lastFalse[rGroup] > r ? 'N' : 'Y');
+            printf("%c", firstFalse[lGroup] < l || lastFalse[rGroup] > r ? 'N' : 'Y');
         } else {
             // 总是可以通过把该区间替换为 false 使得包含该区间的这部分与块为 false
-            std::cout << 'Y';
+            printf("Y");
         }
     }
-    std::cout << "\n";
+    printf("\n");
     return 0;
 }

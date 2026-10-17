@@ -2,17 +2,19 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 枚举 X, Y 两头牛, 对每个差值 d, 统计 Z 落在 [Y+d, Y+2d] 的数量.
 // 排序后二分找到区间两端的位置, 相减即得该区间的牛数.
 struct Cows {
-    std::vector<int> positions;
+    vector<int> positions;
 
     void Read() {
         int n;
         scanf("%d", &n);
         positions.resize(n);
         for (int& p : positions) scanf("%d", &p);
-        std::sort(positions.begin(), positions.end());
+        sort(positions.begin(), positions.end());
     }
 
     int Solve() const {
@@ -33,7 +35,7 @@ struct Cows {
 
     // 位置严格小于 end 的牛的数量.
     int CountLess(int end) const {
-        return std::lower_bound(positions.begin(), positions.end(), end) -
+        return lower_bound(positions.begin(), positions.end(), end) -
                positions.begin();
     }
 };

@@ -1,12 +1,14 @@
-#include <iostream>
+#include <cstdio>
 #include <algorithm>
+
+using namespace std;
 
 void solve() {
     long long A, B, cA, cB, fA;
-    std::cin >> A >> B >> cA >> cB >> fA;
+    scanf("%lld %lld %lld %lld %lld", &A, &B, &cA, &cB, &fA);
     long long init = B / cB * cA + A;
     if (init >= fA) {
-        std::cout << 0 << "\n";
+        printf("0\n");
         return;
     }
     long long nA0 = fA - 1 - init;
@@ -16,12 +18,12 @@ void solve() {
     } else {
         y += nA0 / cA * cB + nA0 % cA;
     }
-    std::cout << y + 1 << "\n";
+    printf("%lld\n", y + 1);
 }
 
 int main() {
     int t;
-    if (std::cin >> t) {
+    if (scanf("%d", &t) == 1) {
         while (t--) {
             solve();
         }

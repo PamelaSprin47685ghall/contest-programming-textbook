@@ -2,10 +2,12 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n, m;
     scanf("%d%d", &n, &m);
-    std::vector<long long> h(n);
+    vector<long long> h(n);
     for (int i = 0; i < n; ++i) {
         scanf("%lld", &h[i]);
     }
@@ -17,7 +19,7 @@ int main() {
         long long eatenUpTo = 0;
         for (int i = 0; i < n && eatenUpTo < cane; ++i) {
             if (h[i] > eatenUpTo) {
-                long long eatAmount = std::min(h[i], cane) - eatenUpTo;
+                long long eatAmount = min(h[i], cane) - eatenUpTo;
                 h[i] += eatAmount;
                 eatenUpTo += eatAmount;
             }

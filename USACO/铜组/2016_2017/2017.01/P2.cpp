@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <cstdio>
 
+using namespace std;
+
 int main() {
     int n;
     scanf("%d", &n);
@@ -13,6 +15,6 @@ int main() {
         ++outcome[difference];
     }
     // 贝茜可任选手势映射, 让差 1 或差 2 的对局都能算她赢, 取较大者.
-    printf("%d\n", std::max(outcome[1], outcome[2]));
+    printf("%d\n", max(outcome[1], outcome[2]));
     return 0;
 }

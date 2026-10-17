@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 // 十进制数 x 的数位之和.
 int DigitSum(int x) {
     int sum = 0;
@@ -18,7 +20,7 @@ bool HasCarry(int a, int b) {
 
 // 枚举每个干草捆是否加入集合, 记录不产生进位时能选出的最大个数.
 struct Search {
-    const std::vector<int>* weights;
+    const vector<int>* weights;
     int answer = 0;
 
     void Compute(int index, int size, int sum) {
@@ -37,7 +39,7 @@ struct Search {
 int main() {
     int n;
     scanf("%d", &n);
-    std::vector<int> weights(n);
+    vector<int> weights(n);
     for (int& weight : weights) scanf("%d", &weight);
 
     Search search;

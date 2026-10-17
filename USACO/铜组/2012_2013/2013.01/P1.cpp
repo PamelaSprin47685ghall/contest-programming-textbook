@@ -3,12 +3,14 @@
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
 // 镜子按坐标组织: XY[x][y] 与 YX[y][x] 都指向同一块镜子的编号, 便于按行/列查找.
 struct Board {
     int n;
-    std::vector<int> direction;  // 0=右,1=上,2=左,3=下; 用异或 1/3 表示 '/' '\' 反射.
-    std::unordered_map<int, std::map<int, int>> byX;
-    std::unordered_map<int, std::map<int, int>> byY;
+    vector<int> direction;  // 0=右,1=上,2=左,3=下; 用异或 1/3 表示 '/' '\' 反射.
+    unordered_map<int, map<int, int>> byX;
+    unordered_map<int, map<int, int>> byY;
 
     void Read(int cowCount) {
         n = cowCount;

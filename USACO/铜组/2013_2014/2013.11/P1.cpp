@@ -3,6 +3,8 @@
 #include <unordered_set>
 #include <vector>
 
+using namespace std;
+
 // 每个转盘数字允许的取值是 [v-2, v+2] 共 5 个, 两把锁各 3 位,
 // 直接枚举所有组合, 用集合去掉重复, 集合大小就是答案.
 struct Combination {
@@ -37,7 +39,7 @@ int main() {
     int n;
     scanf("%d", &n);
 
-    std::unordered_set<Combination, CombinationHash> seen;
+    unordered_set<Combination, CombinationHash> seen;
     for (int i = 0; i < 2; ++i) {
         Lock lock = ReadLock();
         // 枚举 3 个位置各自的 5 种取值, 组合成一个候选开锁组合.

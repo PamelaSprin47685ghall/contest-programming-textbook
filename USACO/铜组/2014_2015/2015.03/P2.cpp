@@ -1,5 +1,7 @@
 #include <cstdio>
 
+using namespace std;
+
 struct Variable {
     long long ways[2];  // 该表达式取值为 0 / 1 的赋值方法数。
 };

@@ -1,10 +1,12 @@
 #include <algorithm>
 #include <cstdio>
 
+using namespace std;
+
 int main() {
     int p[3];
     scanf("%d%d%d", &p[0], &p[1], &p[2]);
-    std::sort(p, p + 3);
+    sort(p, p + 3);
 
     // 最小步数:
     // 1. 如果已经连续 (如 3, 4, 5), 需 0 步;
@@ -22,7 +24,7 @@ int main() {
     // 最大步数:
     // 每次只能将端点移入内部, 相当于消耗一段间隙.
     // 第一次移动选消除较小的那个间隙, 留出最大的间隙逐格移动.
-    int maxMoves = std::max(p[1] - p[0], p[2] - p[1]) - 1;
+    int maxMoves = max(p[1] - p[0], p[2] - p[1]) - 1;
 
     printf("%d\n%d\n", minMoves, maxMoves);
     return 0;

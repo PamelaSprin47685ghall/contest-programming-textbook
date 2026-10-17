@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
     long long m;
@@ -10,16 +12,16 @@ int main() {
 
     char buf[200005];
     scanf("%s", buf);
-    std::string s = buf;
+    string s = buf;
 
-    std::vector<long long> a(n);
+    vector<long long> a(n);
     long long totalMilk = 0;
     for (int i = 0; i < n; ++i) {
         scanf("%lld", &a[i]);
         totalMilk += a[i];
     }
 
-    std::vector<bool> badL(n, false), badR(n, false);
+    vector<bool> badL(n, false), badR(n, false);
     for (int i = 0; i < n; ++i) {
         if (s[i] == 'R' && s[(i + 1) % n] == 'L') {
             badL[i] = true;
@@ -36,7 +38,7 @@ int main() {
                 sum += a[j];
                 j = (j - 1 + n) % n;
             }
-            loss += std::min(sum, m);
+            loss += min(sum, m);
         }
         if (badR[i]) {
             int j = (i + 1) % n;
@@ -44,7 +46,7 @@ int main() {
                 sum += a[j];
                 j = (j + 1) % n;
             }
-            loss += std::min(sum, m);
+            loss += min(sum, m);
         }
     }
 

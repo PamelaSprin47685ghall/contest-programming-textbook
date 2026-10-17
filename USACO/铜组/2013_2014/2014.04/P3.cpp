@@ -2,8 +2,10 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 struct Graph {
-    std::vector<std::vector<int>> out;
+    vector<vector<int>> out;
 
     void Read() {
         int n, m;
@@ -22,7 +24,7 @@ struct Graph {
 // 否则取该分量中两种颜色数量较多者, 作为能装饰的牛数.
 struct Bipartite {
     const Graph* graph;
-    std::vector<int> color; // 0=未染色, 1/2=两种颜色
+    vector<int> color; // 0=未染色, 1/2=两种颜色
     int count[2];
 
     bool TryColor(int node, int c) {
@@ -42,7 +44,7 @@ struct Bipartite {
         for (int i = 0; i < (int)graph->out.size(); ++i) {
             count[0] = count[1] = 0;
             if (color[i] == 0 && !TryColor(i, 1)) return -1;
-            answer += std::max(count[0], count[1]);
+            answer += max(count[0], count[1]);
         }
         return answer;
     }

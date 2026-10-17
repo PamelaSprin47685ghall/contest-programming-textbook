@@ -1,21 +1,25 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Sample {
-    std::string bits;
+    string bits;
     int result;
 };
 
-void Solve() {
+void solve() {
     int n, m;
-    std::cin >> n >> m;
-    std::vector<Sample> samples(m);
+    scanf("%d %d", &n, &m);
+    vector<Sample> samples(m);
+    char buffer[105];
     for (int i = 0; i < m; ++i) {
-        std::cin >> samples[i].bits >> samples[i].result;
+        scanf("%s %d", buffer, &samples[i].result);
+        samples[i].bits = buffer;
     }
 
-    std::vector<bool> resolved(m, false);
+    vector<char> resolved(m, 0);
     int remaining = m;
 
     // 反向解析: 每次寻找一条合法的 if 规则 "if (b[var] == val) return res;"
@@ -25,7 +29,8 @@ void Solve() {
         bool foundRule = false;
 
         for (int var = 0; var < n; ++var) {
-            for (char val : {'0', '1'}) {
+            for (int valueIndex = 0; valueIndex < 2; ++valueIndex) {
+                char val = valueIndex == 0 ? '0' : '1';
                 int matchedResult = -1;
                 bool consistent = true;
                 int matchCount = 0;
@@ -47,7 +52,7 @@ void Solve() {
                     foundRule = true;
                     for (int i = 0; i < m; ++i) {
                         if (!resolved[i] && samples[i].bits[var] == val) {
-                            resolved[i] = true;
+                            resolved[i] = 1;
                             --remaining;
                         }
                     }
@@ -59,20 +64,17 @@ void Solve() {
 
         if (!foundRule) {
             // 无法找到任何能一致分类的分支规则
-            std::cout << "LIE\n";
+            printf("LIE\n");
             return;
         }
     }
 
-    std::cout << "OK\n";
+    printf("OK\n");
 }
 
 int main() {
     int t;
-    if (std::cin >> t) {
-        while (t--) {
-            Solve();
-        }
-    }
+    scanf("%d", &t);
+    while (t--) solve();
     return 0;
 }

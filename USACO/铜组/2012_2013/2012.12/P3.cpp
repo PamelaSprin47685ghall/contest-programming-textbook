@@ -2,13 +2,15 @@
 #include <cstdio>
 #include <vector>
 
+using namespace std;
+
 const int DX[4] = {1, 0, -1, 0};
 const int DY[4] = {0, 1, 0, -1};
 
 // 收集 values 里出现的值并排序去重, 返回去重后的有序表.
-std::vector<int> UniqueSorted(std::vector<int>& values) {
-    std::sort(values.begin(), values.end());
-    values.erase(std::unique(values.begin(), values.end()), values.end());
+vector<int> UniqueSorted(vector<int>& values) {
+    sort(values.begin(), values.end());
+    values.erase(unique(values.begin(), values.end()), values.end());
     return values;
 }
 
@@ -24,8 +26,8 @@ struct Fence {
 struct Input {
     int xSize = 0;
     int ySize = 0;
-    std::vector<Point> cows;
-    std::vector<Fence> fences;
+    vector<Point> cows;
+    vector<Fence> fences;
 
     void Read() {
         int n, c;
@@ -33,16 +35,16 @@ struct Input {
         fences.resize(n);
         for (Fence& f : fences) {
             scanf("%d%d%d%d", &f.x0, &f.y0, &f.x1, &f.y1);
-            if (f.x1 < f.x0) std::swap(f.x0, f.x1);
-            if (f.y1 < f.y0) std::swap(f.y0, f.y1);
+            if (f.x1 < f.x0) swap(f.x0, f.x1);
+            if (f.y1 < f.y0) swap(f.y0, f.y1);
         }
         cows.resize(c);
         for (Point& cow : cows) scanf("%d%d", &cow.x, &cow.y);
     }
 
     void DiscretizeXY() {
-        std::vector<int> xs;
-        std::vector<int> ys;
+        vector<int> xs;
+        vector<int> ys;
         for (Fence& f : fences) {
             xs.push_back(f.x0);
             xs.push_back(f.x1);
@@ -53,18 +55,18 @@ struct Input {
             xs.push_back(cow.x);
             ys.push_back(cow.y);
         }
-        std::vector<int> uniqueXs = UniqueSorted(xs);
-        std::vector<int> uniqueYs = UniqueSorted(ys);
+        vector<int> uniqueXs = UniqueSorted(xs);
+        vector<int> uniqueYs = UniqueSorted(ys);
         // 把每个坐标替换成它的排名, 之后 Map 用排名定位.
         for (Fence& f : fences) {
-            f.x0 = (int)(std::lower_bound(uniqueXs.begin(), uniqueXs.end(), f.x0) - uniqueXs.begin());
-            f.x1 = (int)(std::lower_bound(uniqueXs.begin(), uniqueXs.end(), f.x1) - uniqueXs.begin());
-            f.y0 = (int)(std::lower_bound(uniqueYs.begin(), uniqueYs.end(), f.y0) - uniqueYs.begin());
-            f.y1 = (int)(std::lower_bound(uniqueYs.begin(), uniqueYs.end(), f.y1) - uniqueYs.begin());
+            f.x0 = (int)(lower_bound(uniqueXs.begin(), uniqueXs.end(), f.x0) - uniqueXs.begin());
+            f.x1 = (int)(lower_bound(uniqueXs.begin(), uniqueXs.end(), f.x1) - uniqueXs.begin());
+            f.y0 = (int)(lower_bound(uniqueYs.begin(), uniqueYs.end(), f.y0) - uniqueYs.begin());
+            f.y1 = (int)(lower_bound(uniqueYs.begin(), uniqueYs.end(), f.y1) - uniqueYs.begin());
         }
         for (Point& cow : cows) {
-            cow.x = (int)(std::lower_bound(uniqueXs.begin(), uniqueXs.end(), cow.x) - uniqueXs.begin());
-            cow.y = (int)(std::lower_bound(uniqueYs.begin(), uniqueYs.end(), cow.y) - uniqueYs.begin());
+            cow.x = (int)(lower_bound(uniqueXs.begin(), uniqueXs.end(), cow.x) - uniqueXs.begin());
+            cow.y = (int)(lower_bound(uniqueYs.begin(), uniqueYs.end(), cow.y) - uniqueYs.begin());
         }
         xSize = 2 * (int)uniqueXs.size() + 3;
         ySize = 2 * (int)uniqueYs.size() + 3;
@@ -77,12 +79,12 @@ int Map(int rank) { return 2 * rank + 2; }
 // 网格: ' ' 空地, 'F' 栅栏/已访问, 'C' 牛.
 struct Board {
     int xSize, ySize;
-    std::vector<std::vector<char>> data;
+    vector<vector<char>> data;
 
     void Build(const Input& in) {
         xSize = in.xSize;
         ySize = in.ySize;
-        data.assign(xSize, std::vector<char>(ySize, ' '));
+        data.assign(xSize, vector<char>(ySize, ' '));
         for (const Point& cow : in.cows) {
             data[Map(cow.x)][Map(cow.y)] = 'C';
         }
@@ -102,12 +104,27 @@ struct Board {
     }
 
     // 从 (x,y) 出发的连通区域里有多少头牛 (栅栏挡住, 不会跨过).
+    // 用显式栈代替递归, 避免区域很大时递归过深爆栈.
     int Visit(int x, int y) {
         if (data[x][y] == 'F') return 0;
-        int count = (data[x][y] == 'C') ? 1 : 0;
+        int count = 0;
+        vector<int> pending;
+        if (data[x][y] == 'C') ++count;
         data[x][y] = 'F';
-        for (int i = 0; i < 4; ++i) {
-            count += Visit(x + DX[i], y + DY[i]);
+        pending.push_back(x * ySize + y);
+        while (!pending.empty()) {
+            int cell = pending.back();
+            pending.pop_back();
+            int cx = cell / ySize;
+            int cy = cell % ySize;
+            for (int i = 0; i < 4; ++i) {
+                int nx = cx + DX[i];
+                int ny = cy + DY[i];
+                if (data[nx][ny] == 'F') continue;
+                if (data[nx][ny] == 'C') ++count;
+                data[nx][ny] = 'F';
+                pending.push_back(nx * ySize + ny);
+            }
         }
         return count;
     }
@@ -117,7 +134,7 @@ struct Board {
         int answer = 0;
         for (int x = 0; x < xSize; ++x) {
             for (int y = 0; y < ySize; ++y) {
-                answer = std::max(answer, Visit(x, y));
+                answer = max(answer, Visit(x, y));
             }
         }
         return answer;

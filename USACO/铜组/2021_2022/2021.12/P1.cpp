@@ -1,16 +1,19 @@
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
     int n;
-    std::string s;
-    if (!(std::cin >> n >> s)) return 0;
+    char buffer[500005];
+    if (scanf("%d%s", &n, buffer) != 2) return 0;
+    string s = buffer;
 
     // leftCount[i]: 在位置 i 左侧, 紧邻的与 s[i] 品种不同的连续牛数量
     // rightCount[i]: 在位置 i 右侧, 紧邻的与 s[i] 品种不同的连续牛数量
-    std::vector<long long> leftCount(n, 0);
-    std::vector<long long> rightCount(n, 0);
+    vector<long long> leftCount(n, 0);
+    vector<long long> rightCount(n, 0);
 
     long long count = 0;
     for (int i = 0; i < n; ++i) {
@@ -57,6 +60,6 @@ int main() {
         }
     }
 
-    std::cout << answer << "\n";
+    printf("%lld\n", answer);
     return 0;
 }

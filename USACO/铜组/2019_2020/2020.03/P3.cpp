@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Shake {
     int t, x, y;
 };
@@ -12,16 +14,16 @@ int main() {
     scanf("%d%d", &n, &tCount);
     char buf[128];
     scanf("%s", buf);
-    std::string finalState = buf;
+    string finalState = buf;
 
-    std::vector<Shake> shakes(tCount);
+    vector<Shake> shakes(tCount);
     for (int i = 0; i < tCount; ++i) {
         scanf("%d%d%d", &shakes[i].t, &shakes[i].x, &shakes[i].y);
         --shakes[i].x;  // 转换为 0-based
         --shakes[i].y;
     }
 
-    std::sort(shakes.begin(), shakes.end(), [](const Shake& a, const Shake& b) {
+    sort(shakes.begin(), shakes.end(), [](const Shake& a, const Shake& b) {
         return a.t < b.t;
     });
 
@@ -35,8 +37,8 @@ int main() {
 
         // 枚举传染次数 K 的可能值 (0 到 tCount + 1)
         for (int k = 0; k <= tCount + 1; ++k) {
-            std::vector<bool> infected(n, false);
-            std::vector<int> numShakes(n, 0);
+            vector<bool> infected(n, false);
+            vector<int> numShakes(n, 0);
 
             infected[patient] = true;
 
@@ -68,8 +70,8 @@ int main() {
 
             if (match) {
                 canBePatientZero = true;
-                minK = std::min(minK, k);
-                maxK = std::max(maxK, k);
+                minK = min(minK, k);
+                maxK = max(maxK, k);
             }
         }
 

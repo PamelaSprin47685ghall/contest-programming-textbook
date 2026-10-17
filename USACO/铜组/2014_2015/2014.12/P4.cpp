@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Sample {
     char kind;      // 'S' 表示会学习，'N' 表示不会。
     int position;
@@ -17,12 +19,12 @@ bool operator<(const Sample& s0, const Sample& s1) {
 int main() {
     int n, a, b;
     scanf("%d%d%d", &n, &a, &b);
-    std::vector<Sample> samples(n), events;
+    vector<Sample> samples(n), events;
     for (int i = 0; i < n; ++i) {
         scanf(" %cS", &samples[i].kind);
         scanf("%d", &samples[i].position);
     }
-    std::sort(samples.begin(), samples.end());
+    sort(samples.begin(), samples.end());
     // 两种相邻奶牛的分界点取中点；isN 为真时中点偏右，保证分界落在正确一侧。
     auto midpoint = [](int left, int right, bool isN) {
         return left + (right - left + 1 + (isN ? 1 : 0)) / 2;
@@ -37,7 +39,7 @@ int main() {
     // 用两个哨兵事件圈出 [a, b] 查询区间。
     events.push_back(Sample{'Z', a});
     events.push_back(Sample{'Z', b + 1});
-    std::sort(events.begin(), events.end());
+    sort(events.begin(), events.end());
     Sample last{samples[0].kind, 0};
     int answer = 0;
     bool inRange = false;

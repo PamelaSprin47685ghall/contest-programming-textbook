@@ -1,13 +1,17 @@
-#include "bits/stdc++.h"
-#define MAXN 1000005
+#include <cstdio>
+#include <cstring>
+
 using namespace std;
+
+#define MAXN 1000005
+
 int a[MAXN], pref[MAXN], cnt[MAXN];
 long long ans = 0;
- 
+
 int main() {
-    int n; cin >> n;
+    int n; scanf("%d", &n);
     for (int i = 1; i <= n; i++)
-        cin >> a[i];
+        scanf("%d", &a[i]);
     for (int i = 1; i <= n; i++) {
         pref[i] = pref[i-1];
         cnt[a[i]]++;
@@ -25,5 +29,5 @@ int main() {
         if (cnt[i] >= 3)
             ans--;
     }
-    cout << ans;
+    printf("%lld\n", ans);
 }

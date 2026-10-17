@@ -2,9 +2,11 @@
 #include <limits>
 #include <vector>
 
+using namespace std;
+
 // 枚举最终高度区间 [low, low+17], 计算把所有山修进区间的代价, 取最小.
 struct Mountains {
-    std::vector<int> heights;
+    vector<int> heights;
 
     void Read() {
         int n;
@@ -14,9 +16,9 @@ struct Mountains {
     }
 
     int Solve() const {
-        int answer = std::numeric_limits<int>::max();
+        int answer = numeric_limits<int>::max();
         for (int low = 0; low <= 100; ++low) {
-            answer = std::min(answer, Cost(low));
+            answer = min(answer, Cost(low));
         }
         return answer;
     }

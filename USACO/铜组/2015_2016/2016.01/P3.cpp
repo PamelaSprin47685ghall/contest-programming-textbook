@@ -2,6 +2,8 @@
 #include <limits>
 #include <unordered_map>
 
+using namespace std;
+
 // 记录每个坐标上次被割草的时间，重复经过同一坐标时，
 // 两次时间之差就是割草机绕一圈回到原处的时间。
 struct Point {
@@ -24,17 +26,17 @@ int main() {
     int n;
     scanf("%d", &n);
 
-    std::unordered_map<char, Point> step;
+    unordered_map<char, Point> step;
     step['E'] = Point{1, 0};
     step['N'] = Point{0, 1};
     step['W'] = Point{-1, 0};
     step['S'] = Point{0, -1};
 
     int x = 0, y = 0, time = 1;
-    std::unordered_map<Point, int, PointHash, PointEq> lastVisit;
+    unordered_map<Point, int, PointHash, PointEq> lastVisit;
     lastVisit[Point{x, y}] = time++;
 
-    int answer = std::numeric_limits<int>::max();
+    int answer = numeric_limits<int>::max();
     for (int i = 0; i < n; ++i) {
         char d;
         int count;
@@ -45,12 +47,12 @@ int main() {
             y += move.Y;
             int& prevTime = lastVisit[Point{x, y}];
             if (prevTime != 0) {
-                answer = std::min(answer, time - prevTime);
+                answer = min(answer, time - prevTime);
             }
             prevTime = time++;
         }
     }
-    if (answer == std::numeric_limits<int>::max()) {
+    if (answer == numeric_limits<int>::max()) {
         printf("-1\n");
     } else {
         printf("%d\n", answer);

@@ -1,13 +1,22 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
-    std::vector<std::string> target(3);
-    std::vector<std::string> guess(3);
-    for (int i = 0; i < 3; ++i) std::cin >> target[i];
-    for (int i = 0; i < 3; ++i) std::cin >> guess[i];
+    vector<string> target(3);
+    vector<string> guess(3);
+    char buffer[8];
+    for (int i = 0; i < 3; ++i) {
+        scanf("%s", buffer);
+        target[i] = buffer;
+    }
+    for (int i = 0; i < 3; ++i) {
+        scanf("%s", buffer);
+        guess[i] = buffer;
+    }
 
     int green = 0;
     int targetFreq[26] = {};
@@ -26,9 +35,9 @@ int main() {
 
     int yellow = 0;
     for (int i = 0; i < 26; ++i) {
-        yellow += std::min(targetFreq[i], guessFreq[i]);
+        yellow += min(targetFreq[i], guessFreq[i]);
     }
 
-    std::cout << green << "\n" << yellow << "\n";
+    printf("%d\n%d\n", green, yellow);
     return 0;
 }
